@@ -79,6 +79,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-hexo常用命令列表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/20231007/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-10-07T03:42:03.000Z" itemprop="datePublished">2023-10-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/20231007/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8/">hexo常用命令列表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h3><ol>
+<li>npm install hexo -g                             #全局安装Hexo</li>
+<li>npm install hexo-bridge                         #安装hexo-bridge插件</li>
+<li>ssh-keygen -t rsa -C “***@foxmail.com”          #生成GitHub key</li>
+<li>cd ~&#x2F;.ssh                                       #进入ssh目录</li>
+<li>cat id_rsa.pub                                  #查看id_rsa密钥</li>
+<li>ssh -T <a href="mailto:&#103;&#x69;&#x74;&#64;&#103;&#105;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#64;&#103;&#105;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>                           #查看id_rsa密钥配置检测</li>
+<li>git config –global user.name “jameschy”        #配置username</li>
+<li>git config –global user.email “***@foxmail.com”#配置email</li>
+<li>git config user.name                            #查看username配置</li>
+<li>git config user.email                          #查看email配置</li>
+</ol>
+<h3 id="Hexo执行"><a href="#Hexo执行" class="headerlink" title="Hexo执行"></a>Hexo执行</h3><p>hexo d  发布到远端</p>
+<p>常见错误：<br>$ hexo d<br>INFO  Validating config<br>ERROR Deployer not found: git</p>
+<p>修复命令：<br>npm install –save hexo-deployer-git</p>
+<p>hexo init                #hexo初始化</p>
+<p>hexo clean               #清除缓存</p>
+<p>hexo new “博客标题”       #创建“博客标题”的文章md文档</p>
+<p>hexo new page “pageName” #新建页面</p>
+<p>hexo generate            #生成静态文件至public目录</p>
+<p>hexo server              #运行本地服务器预览（默认端口4000，’ctrl + c’关闭server）</p>
+<p>hexo deploy              #部署到远程站点github</p>
+<p>hexo help                # 查看帮助</p>
+<p>hexo version             #查看Hexo的版本；简写hexo v</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/550709268">https://zhuanlan.zhihu.com/p/550709268</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jameschy.github.io/20231007/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8/" data-id="clnfig8og0000egvdcvpi2f4q" data-title="hexo常用命令列表" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-谨以此纪念博客园曾经的荣光！" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/20231007/%E8%B0%A8%E4%BB%A5%E6%AD%A4%E7%BA%AA%E5%BF%B5%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%9B%BE%E7%BB%8F%E7%9A%84%E8%8D%A3%E5%85%89%EF%BC%81/" class="article-date">
@@ -109,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jameschy.github.io/20231007/%E8%B0%A8%E4%BB%A5%E6%AD%A4%E7%BA%AA%E5%BF%B5%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%9B%BE%E7%BB%8F%E7%9A%84%E8%8D%A3%E5%85%89%EF%BC%81/" data-id="clnfh941b0001r4vdcxjm4aiw" data-title="谨以此纪念博客园曾经的荣光！" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://jameschy.github.io/20231007/%E8%B0%A8%E4%BB%A5%E6%AD%A4%E7%BA%AA%E5%BF%B5%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%9B%BE%E7%BB%8F%E7%9A%84%E8%8D%A3%E5%85%89%EF%BC%81/" data-id="clnfig8p20002egvd0srm9yip" data-title="谨以此纪念博客园曾经的荣光！" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -160,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jameschy.github.io/20231007/hello-world/" data-id="clnfh940w0000r4vd0uk1fyoy" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://jameschy.github.io/20231007/hello-world/" data-id="clnfig8ol0001egvd99m97j5y" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -201,6 +264,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/20231007/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8/">hexo常用命令列表</a>
+          </li>
         
           <li>
             <a href="/20231007/%E8%B0%A8%E4%BB%A5%E6%AD%A4%E7%BA%AA%E5%BF%B5%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%9B%BE%E7%BB%8F%E7%9A%84%E8%8D%A3%E5%85%89%EF%BC%81/">谨以此纪念博客园曾经的荣光！</a>
