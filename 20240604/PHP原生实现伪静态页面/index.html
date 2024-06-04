@@ -4,15 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>詹姆斯的博客</title>
+  <title>PHP原生实现伪静态页面 | 詹姆斯的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="记录日常开发idea、遇到的问题、解决方法、学习进度等！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="詹姆斯的博客">
-<meta property="og:url" content="https://jameschy.github.io/index.html">
+  <meta name="description" content="步骤1：构造伪静态列表&lt;? $url &#x3D; &#39;http:&#x2F;&#x2F;10.10.10.51:7012&#x2F;whiteapi&#x2F;live&#39;;  &#x2F;&#x2F; API接口地址 $curl &#x3D; curl_init($url);  &#x2F;&#x2F; 初始化cURL会话      &#x2F;&#x2F; 设置cURL选项 curl_setopt($curl, CURLOPT_URL, $url); curl_setopt($curl, C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP原生实现伪静态页面">
+<meta property="og:url" content="https://jameschy.github.io/20240604/PHP%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0%E4%BC%AA%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/index.html">
 <meta property="og:site_name" content="詹姆斯的博客">
-<meta property="og:description" content="记录日常开发idea、遇到的问题、解决方法、学习进度等！">
+<meta property="og:description" content="步骤1：构造伪静态列表&lt;? $url &#x3D; &#39;http:&#x2F;&#x2F;10.10.10.51:7012&#x2F;whiteapi&#x2F;live&#39;;  &#x2F;&#x2F; API接口地址 $curl &#x3D; curl_init($url);  &#x2F;&#x2F; 初始化cURL会话      &#x2F;&#x2F; 设置cURL选项 curl_setopt($curl, CURLOPT_URL, $url); curl_setopt($curl, C">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-04T02:11:12.000Z">
+<meta property="article:modified_time" content="2024-06-04T02:59:28.086Z">
 <meta property="article:author" content="James chy">
 <meta name="twitter:card" content="summary">
   
@@ -77,9 +79,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-PHP原生实现伪静态页面" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-PHP原生实现伪静态页面" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/20240604/PHP%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0%E4%BC%AA%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/" class="article-date">
   <time class="dt-published" datetime="2024-06-04T02:11:12.000Z" itemprop="datePublished">2024-06-04</time>
@@ -92,8 +92,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/20240604/PHP%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0%E4%BC%AA%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/">PHP原生实现伪静态页面</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      PHP原生实现伪静态页面
     </h1>
   
 
@@ -432,222 +432,19 @@ if($matchsMsg[&#39;status&#39;] !==0 &amp;&amp; $matchsMsg[&#39;status&#39;]    
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-markdown常用语法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/20231007/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-10-07T05:38:22.000Z" itemprop="datePublished">2023-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/20231007/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">markdown常用语法</a>
-    </h1>
+    <a href="/20231007/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">markdown常用语法</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h1 id="目录引用"><a href="#目录引用" class="headerlink" title="目录引用"></a>目录引用</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[TOC]</span><br></pre></td></tr></table></figure>
-
-<h1 id="标题序号"><a href="#标题序号" class="headerlink" title="标题序号"></a>标题序号</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#          h1</span><br><span class="line">##         h2</span><br><span class="line">###        h3</span><br><span class="line">####       h4</span><br><span class="line">#####      h5</span><br><span class="line">######     h6</span><br></pre></td></tr></table></figure>
-
-<h1 id="字体引用"><a href="#字体引用" class="headerlink" title="字体引用"></a>字体引用</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**bold text**       粗体</span><br><span class="line">*italicized text*   斜体</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="列表引用"><a href="#列表引用" class="headerlink" title="列表引用"></a>列表引用</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">有序列表</span><br><span class="line">1. First item</span><br><span class="line">2. Second item</span><br><span class="line">3. Third item</span><br><span class="line">4. Fourth item</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">无序列表</span><br><span class="line">- First item</span><br><span class="line">- Second item</span><br><span class="line">- Third item</span><br><span class="line">- Fourth item</span><br></pre></td></tr></table></figure>
-<h1 id="图片引用"><a href="#图片引用" class="headerlink" title="图片引用"></a>图片引用</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![这是图片](https://markdown.com.cn/assets/img/philly-magic-garden.9c0b4415.jpg &quot;Magic Gardens&quot;)</span><br></pre></td></tr></table></figure>
-<p><a href="https://jameschy.github.io/"><img src="https://markdown.com.cn/assets/img/philly-magic-garden.9c0b4415.jpg" alt="这是图片" title="Magic Gardens"></a></p>
-<h1 id="引用嵌套"><a href="#引用嵌套" class="headerlink" title="引用嵌套"></a>引用嵌套</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jameschy.github.io/20231007/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" data-id="clwztbz2w000588vd9184a6iv" data-title="markdown常用语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
-    <article id="post-hexo常用命令列表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/20231007/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8/" class="article-date">
-  <time class="dt-published" datetime="2023-10-07T03:42:03.000Z" itemprop="datePublished">2023-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/20231007/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8/">hexo常用命令列表</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h3><ol>
-<li>npm install hexo -g                             #全局安装Hexo</li>
-<li>npm install hexo-bridge                         #安装hexo-bridge插件</li>
-<li>ssh-keygen -t rsa -C “***@foxmail.com”          #生成GitHub key</li>
-<li>cd ~&#x2F;.ssh                                       #进入ssh目录</li>
-<li>cat id_rsa.pub                                  #查看id_rsa密钥</li>
-<li>ssh -T <a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#x69;&#x74;&#x68;&#117;&#x62;&#46;&#x63;&#111;&#x6d;">&#x67;&#x69;&#116;&#x40;&#103;&#x69;&#x74;&#x68;&#117;&#x62;&#46;&#x63;&#111;&#x6d;</a>                           #查看id_rsa密钥配置检测</li>
-<li>git config –global user.name “jameschy”        #配置username</li>
-<li>git config –global user.email “***@foxmail.com”#配置email</li>
-<li>git config user.name                            #查看username配置</li>
-<li>git config user.email                          #查看email配置</li>
-</ol>
-<h3 id="Hexo执行"><a href="#Hexo执行" class="headerlink" title="Hexo执行"></a>Hexo执行</h3><p>hexo d  发布到远端</p>
-<p>常见错误：<br>$ hexo d<br>INFO  Validating config<br>ERROR Deployer not found: git</p>
-<p>修复命令：<br>npm install –save hexo-deployer-git</p>
-<p>hexo init                #hexo初始化</p>
-<p>hexo clean               #清除缓存</p>
-<p>hexo new “博客标题”       #创建“博客标题”的文章md文档</p>
-<p>hexo new page “pageName” #新建页面</p>
-<p>hexo generate            #生成静态文件至public目录</p>
-<p>hexo server              #运行本地服务器预览（默认端口4000，’ctrl + c’关闭server）</p>
-<p>hexo deploy              #部署到远程站点github；简写hexo d</p>
-<p>hexo help                # 查看帮助</p>
-<p>hexo version             #查看Hexo的版本；简写hexo v</p>
-<p><img src="http://pic.downcc.com/upload/2015-9/2015923174024.png" alt="markdown"></p>
-<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/550709268">https://zhuanlan.zhihu.com/p/550709268</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jameschy.github.io/20231007/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8/" data-id="clwztbz2w000488vd4kow5by7" data-title="hexo常用命令列表" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-谨以此纪念博客园曾经的荣光！" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/20231007/%E8%B0%A8%E4%BB%A5%E6%AD%A4%E7%BA%AA%E5%BF%B5%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%9B%BE%E7%BB%8F%E7%9A%84%E8%8D%A3%E5%85%89%EF%BC%81/" class="article-date">
-  <time class="dt-published" datetime="2023-10-07T03:10:01.000Z" itemprop="datePublished">2023-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/20231007/%E8%B0%A8%E4%BB%A5%E6%AD%A4%E7%BA%AA%E5%BF%B5%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%9B%BE%E7%BB%8F%E7%9A%84%E8%8D%A3%E5%85%89%EF%BC%81/">谨以此纪念博客园曾经的荣光！</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>今早，又闻博客园遭到了Ddos攻击，虽然已经解决此问题，但是经此一遭，使得本不容易的博客园又雪上加霜！</p>
-<p>上月，知悉博客园正在进行各种融资自救，隐隐感觉坚持发了这么多年的博文，支持开发者这么多年的博客论坛，好像要撑不住了。</p>
-<p>国庆假期刚刚休完，今早又闻博客园5日遭受Ddos攻击，为保险起见，特此开动第二战线，防止博客博文被一锅端！</p>
-<p>2023-10-07 11：15：00</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jameschy.github.io/20231007/%E8%B0%A8%E4%BB%A5%E6%AD%A4%E7%BA%AA%E5%BF%B5%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%9B%BE%E7%BB%8F%E7%9A%84%E8%8D%A3%E5%85%89%EF%BC%81/" data-id="clwztbz2v000388vddlz76phx" data-title="谨以此纪念博客园曾经的荣光！" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/20231007/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2023-10-07T02:47:20.671Z" itemprop="datePublished">2023-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/20231007/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://jameschy.github.io/20231007/hello-world/" data-id="clwztbz2t000288vd3nhd1dts" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
 </section>
