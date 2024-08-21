@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Easyadmin使用Composer install时报错：The openssl extension is required for SSL/TLS protection but is not availab | 詹姆斯的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="使用环境：11. Easyadmin(WNMP, ThinkPHP8.0 + PHP8.2.9nts + composer2.5.8)  执行composer install 或 composer install –ignore-platform-reqs 报错提示：12345In Factory.php line 648:  The openssl extension is required f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Easyadmin使用Composer install时报错：The openssl extension is required for SSL&#x2F;TLS protection but is not availab">
+<meta property="og:url" content="https://jameschy.github.io/20240821/Easyadmin%E4%BD%BF%E7%94%A8Composer-install%E6%97%B6%E6%8A%A5%E9%94%99%EF%BC%9AThe-openssl-extension-is-required-for-SSL-TLS-protection-but-is-not-availab/index.html">
+<meta property="og:site_name" content="詹姆斯的博客">
+<meta property="og:description" content="使用环境：11. Easyadmin(WNMP, ThinkPHP8.0 + PHP8.2.9nts + composer2.5.8)  执行composer install 或 composer install –ignore-platform-reqs 报错提示：12345In Factory.php line 648:  The openssl extension is required f">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jameschy.github.io/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240821144140.png">
+<meta property="og:image" content="https://jameschy.github.io/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240821144618.png">
+<meta property="og:image" content="https://jameschy.github.io/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240821144838.png">
+<meta property="article:published_time" content="2024-08-21T06:37:14.000Z">
+<meta property="article:modified_time" content="2024-08-21T06:49:15.288Z">
+<meta property="article:author" content="James chy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jameschy.github.io/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240821144140.png">
+  
+    <link rel="alternate" href="/atom.xml" title="詹姆斯的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">詹姆斯的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一个全栈开发者的博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jameschy.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Easyadmin使用Composer-install时报错：The-openssl-extension-is-required-for-SSL-TLS-protection-but-is-not-availab" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/20240821/Easyadmin%E4%BD%BF%E7%94%A8Composer-install%E6%97%B6%E6%8A%A5%E9%94%99%EF%BC%9AThe-openssl-extension-is-required-for-SSL-TLS-protection-but-is-not-availab/" class="article-date">
+  <time class="dt-published" datetime="2024-08-21T06:37:14.000Z" itemprop="datePublished">2024-08-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Easyadmin使用Composer install时报错：The openssl extension is required for SSL/TLS protection but is not availab
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="使用环境："><a href="#使用环境：" class="headerlink" title="使用环境："></a>使用环境：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. Easyadmin(WNMP, ThinkPHP8.0 + PHP8.2.9nts + composer2.5.8)</span><br></pre></td></tr></table></figure>
+
+<h5 id="执行composer-install-或-composer-install-–ignore-platform-reqs-报错提示："><a href="#执行composer-install-或-composer-install-–ignore-platform-reqs-报错提示：" class="headerlink" title="执行composer install 或 composer install –ignore-platform-reqs 报错提示："></a>执行composer install 或 composer install –ignore-platform-reqs 报错提示：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In Factory.php line 648:</span><br><span class="line"></span><br><span class="line">  The openssl extension is required for SSL/TLS protection but is not availab</span><br><span class="line">  le. If you can not enable the openssl extension, you can disable this error</span><br><span class="line">  , at your own risk, by setting the &#x27;disable-tls&#x27; option to true.</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240821144140.png" alt="markdown"></p>
+<h4 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h4><h6 id="1-使用PHPStudy中的composer，打开时选择别的php版本，如图，选择php8-0-2nts"><a href="#1-使用PHPStudy中的composer，打开时选择别的php版本，如图，选择php8-0-2nts" class="headerlink" title="1.使用PHPStudy中的composer，打开时选择别的php版本，如图，选择php8.0.2nts"></a>1.使用PHPStudy中的composer，打开时选择别的php版本，如图，选择php8.0.2nts</h6><p><img src="/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240821144618.png" alt="markdown"></p>
+<h6 id="2-重新执行composer-install-或-composer-install-–ignore-platform-reqs；"><a href="#2-重新执行composer-install-或-composer-install-–ignore-platform-reqs；" class="headerlink" title="2.重新执行composer install 或 composer install –ignore-platform-reqs；"></a>2.重新执行composer install 或 composer install –ignore-platform-reqs；</h6><p><img src="/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240821144838.png" alt="markdown"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jameschy.github.io/20240821/Easyadmin%E4%BD%BF%E7%94%A8Composer-install%E6%97%B6%E6%8A%A5%E9%94%99%EF%BC%9AThe-openssl-extension-is-required-for-SSL-TLS-protection-but-is-not-availab/" data-id="cm03huegc00005cvd6zac5kfo" data-title="Easyadmin使用Composer install时报错：The openssl extension is required for SSL/TLS protection but is not availab" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/20240820/Easyadmin%E5%AE%89%E8%A3%85/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Easyadmin安装</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/20240821/Easyadmin%E4%BD%BF%E7%94%A8Composer-install%E6%97%B6%E6%8A%A5%E9%94%99%EF%BC%9AThe-openssl-extension-is-required-for-SSL-TLS-protection-but-is-not-availab/">Easyadmin使用Composer install时报错：The openssl extension is required for SSL/TLS protection but is not availab</a>
+          </li>
+        
+          <li>
+            <a href="/20240820/Easyadmin%E5%AE%89%E8%A3%85/">Easyadmin安装</a>
+          </li>
+        
+          <li>
+            <a href="/20240604/PHP%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0%E4%BC%AA%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/">PHP原生实现伪静态页面</a>
+          </li>
+        
+          <li>
+            <a href="/20231007/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">markdown常用语法</a>
+          </li>
+        
+          <li>
+            <a href="/20231007/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8/">hexo常用命令列表</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 James chy<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
