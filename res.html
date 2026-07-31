@@ -99,7 +99,7 @@
             flex-shrink: 0;
         }
 
-        /* ===== 双排模式（显式声明，与默认一致） ===== */
+        /* ===== 双排模式（显式声明） ===== */
         .resume-wrap.double-mode .a4-row {
             flex-direction: row;
             gap: 40px;
@@ -288,56 +288,62 @@
 
         /* ===== 打印样式 ===== */
         @media print {
+            /* 重置 body 边距 */
             body {
                 background: #fff;
                 padding: 0;
+                margin: 0;
             }
             .tool-bar {
                 display: none !important;
             }
             .resume-wrap {
-                gap: 0;
+                gap: 0 !important;
+                max-width: 100% !important;
             }
+            /* 强制每行垂直排列，每页单独分页 */
             .a4-row {
-                flex-wrap: nowrap;
-                gap: 0;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0 !important;
+                align-items: center !important;
+                page-break-after: always !important; /* 每行结束后分页 */
             }
             .a4-page {
-                width: 210mm;
-                height: 297mm;
-                flex-shrink: unset;
-                overflow: visible;
-                box-shadow: none;
-                border-radius: 0;
-                padding: 12mm;
-                page-break-after: always;
+                width: 210mm !important;
+                height: 297mm !important;
+                flex-shrink: 0 !important;
+                overflow: visible !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 12mm !important;
+                margin: 0 !important;
+                page-break-after: always !important; /* 每页强制分页 */
+                page-break-inside: avoid !important;
+                border: none !important;
             }
             .a4-page::before {
-                display: none;
+                display: none !important;
             }
             .page-num {
-                border-top: none;
-                color: #333;
+                border-top: none !important;
+                color: #333 !important;
             }
             .avatar-box {
-                box-shadow: none;
+                box-shadow: none !important;
             }
             .section-title {
                 background: #f3f4f6 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            /* 移除滚动条 */
+            .a4-page::-webkit-scrollbar {
+                display: none !important;
             }
             @page {
                 size: A4;
                 margin: 0;
-            }
-            /* 打印时强制所有页面显示，并恢复双排布局（A4纸每页独立） */
-            .resume-wrap.single-mode .a4-row {
-                flex-direction: row !important;
-                gap: 0 !important;
-            }
-            .resume-wrap.single-mode .a4-row .a4-page {
-                width: 210mm !important;
             }
         }
     </style>
@@ -704,26 +710,70 @@
                 }
             }
 
-            // 初始为单页模式（HTML 已有 single-mode，保持同步）
+            // 初始为单页模式
             setMode(false);
 
+            // 切换预览模式
             switchBtn.addEventListener('click', function() {
                 setMode(!isDouble);
             });
 
+            // 打印：直接调用浏览器的打印，样式已处理
             printBtn.addEventListener('click', function() {
                 window.print();
             });
 
+            // 下载PDF
             downloadBtn.addEventListener('click', function() {
+                // 记录当前模式
+                const wasDouble = wrap.classList.contains('double-mode');
+
+                // 如果当前是双排，切换为单排（确保垂直排列，便于分页）
+                if (wasDouble) {
+                    setMode(false);
+                }
+
+                // 强制设置宽度为210mm，保证截图比例
+                wrap.style.width = '210mm';
+
                 const opt = {
                     margin: 0,
                     filename: '戚键_全栈工程师简历_A4四页.pdf',
                     image: { type: 'jpeg', quality: 0.96 },
-                    html2canvas: { scale: 2, useCORS: true },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        // 固定宽度，防止拉伸
+                        width: 210 * 2.83465, // 210mm 转像素（1mm≈2.83465px）
+                    },
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'portrait'
+                    },
+                    // 利用CSS中的 page-break-after 自动分页
+                    pagebreak: { mode: 'css' }
                 };
-                html2pdf().set(opt).from(wrap).save();
+
+                html2pdf()
+                    .set(opt)
+                    .from(wrap)
+                    .save()
+                    .then(() => {
+                        // 恢复之前的模式
+                        if (wasDouble) {
+                            setMode(true);
+                        }
+                        wrap.style.width = '';
+                    })
+                    .catch((err) => {
+                        console.error('PDF生成失败:', err);
+                        // 出错时也恢复
+                        if (wasDouble) {
+                            setMode(true);
+                        }
+                        wrap.style.width = '';
+                    });
             });
         })();
     </script>
