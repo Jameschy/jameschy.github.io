@@ -260,10 +260,12 @@
             font-size: 15px;
         }
 
-        /* ===== PDF 导出专用样式（缩小字体/间距，移除装饰） ===== */
+        /* ===== PDF 导出专用样式（缩小字体/间距，固定像素尺寸） ===== */
         .pdf-export .a4-page {
-            padding: 8mm !important;
-            font-size: 13px !important;
+            width: 794px !important;   /* 210mm 在 96dpi 下的精确像素 */
+            height: 1123px !important; /* 297mm 在 96dpi 下的精确像素 */
+            padding: 24px !important;  /* 8mm 对应 ≈ 30px，这里用 24px 更紧凑 */
+            font-size: 11px !important;
             line-height: 1.5 !important;
             overflow: hidden !important;
             box-shadow: none !important;
@@ -274,56 +276,52 @@
             display: none !important;
         }
         .pdf-export .header-info h1 {
-            font-size: 28px !important;
+            font-size: 24px !important;
         }
         .pdf-export .header-contact {
-            font-size: 13px !important;
-            line-height: 1.6 !important;
+            font-size: 11px !important;
+            line-height: 1.5 !important;
         }
         .pdf-export .section-title {
-            height: 32px !important;
-            margin: 18px 0 8px !important;
+            height: 28px !important;
+            margin: 14px 0 6px !important;
         }
         .pdf-export .section-title span {
-            font-size: 16px !important;
+            font-size: 14px !important;
         }
         .pdf-export .item-head {
-            font-size: 14px !important;
-            padding: 4px 8px !important;
+            font-size: 12px !important;
+            padding: 3px 6px !important;
             margin-top: 4px !important;
         }
         .pdf-export .sub-title {
-            font-size: 14px !important;
-            margin: 8px 0 2px 8px !important;
+            font-size: 12px !important;
+            margin: 6px 0 2px 6px !important;
         }
         .pdf-export .edu-content,
         .pdf-export .text-list {
-            font-size: 13px !important;
+            font-size: 11px !important;
             line-height: 1.5 !important;
         }
         .pdf-export .text-list li {
-            margin: 4px 0 !important;
+            margin: 3px 0 !important;
         }
         .pdf-export .avatar-box {
-            height: 140px !important;
+            height: 110px !important;
         }
         .pdf-export .page-num {
-            font-size: 11px !important;
+            font-size: 10px !important;
             padding-top: 4px !important;
             border-top: none !important;
         }
         .pdf-export .edu-head {
-            font-size: 14px !important;
+            font-size: 12px !important;
         }
         .pdf-export .a4-page::-webkit-scrollbar {
             display: none !important;
         }
-        /* 移除蓝色装饰条和阴影 */
-        .pdf-export .a4-page::before {
-            display: none !important;
-        }
         .pdf-export .a4-page {
-            box-shadow: none !important;
+            page-break-after: always !important;
         }
 
         /* ===== 打印样式 ===== */
@@ -348,7 +346,7 @@
                 width: 210mm !important;
                 height: 297mm !important;
                 padding: 8mm !important;
-                font-size: 13px !important;
+                font-size: 11px !important;
                 line-height: 1.5 !important;
                 overflow: hidden !important;
                 box-shadow: none !important;
@@ -361,50 +359,50 @@
                 display: none !important;
             }
             .header-info h1 {
-                font-size: 28px !important;
+                font-size: 24px !important;
             }
             .header-contact {
-                font-size: 13px !important;
-                line-height: 1.6 !important;
+                font-size: 11px !important;
+                line-height: 1.5 !important;
             }
             .section-title {
-                height: 32px !important;
-                margin: 18px 0 8px !important;
+                height: 28px !important;
+                margin: 14px 0 6px !important;
                 background: #f3f4f6 !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
             .section-title span {
-                font-size: 16px !important;
+                font-size: 14px !important;
             }
             .item-head {
-                font-size: 14px !important;
-                padding: 4px 8px !important;
+                font-size: 12px !important;
+                padding: 3px 6px !important;
                 margin-top: 4px !important;
             }
             .sub-title {
-                font-size: 14px !important;
-                margin: 8px 0 2px 8px !important;
+                font-size: 12px !important;
+                margin: 6px 0 2px 6px !important;
             }
             .edu-content,
             .text-list {
-                font-size: 13px !important;
+                font-size: 11px !important;
                 line-height: 1.5 !important;
             }
             .text-list li {
-                margin: 4px 0 !important;
+                margin: 3px 0 !important;
             }
             .avatar-box {
-                height: 140px !important;
+                height: 110px !important;
             }
             .page-num {
-                font-size: 11px !important;
+                font-size: 10px !important;
                 padding-top: 4px !important;
                 border-top: none !important;
                 color: #333 !important;
             }
             .edu-head {
-                font-size: 14px !important;
+                font-size: 12px !important;
             }
             .a4-page::-webkit-scrollbar {
                 display: none !important;
@@ -763,7 +761,7 @@
             const printBtn = document.getElementById('printBtn');
             const downloadBtn = document.getElementById('downloadBtn');
 
-            let isDouble = false; // true=双排, false=单排
+            let isDouble = false;
 
             function setMode(double) {
                 isDouble = double;
@@ -777,44 +775,32 @@
                     switchBtn.textContent = '切换双排预览';
                 }
             }
-
-            // 初始为单页模式
             setMode(false);
 
-            // 切换预览模式
             switchBtn.addEventListener('click', function() {
                 setMode(!isDouble);
             });
 
-            // 打印
             printBtn.addEventListener('click', function() {
                 window.print();
             });
 
-            // ---- 下载 PDF（手动逐页截图，保证内容完整） ----
+            // ---- 下载 PDF（手动逐页截图，固定像素尺寸，完美适配） ----
             downloadBtn.addEventListener('click', function() {
-                // 保存当前模式
                 const wasDouble = wrap.classList.contains('double-mode');
 
-                // 强制切换到单页模式（垂直排列）
-                if (wasDouble) {
-                    setMode(false);
-                }
+                // 强制单页
+                if (wasDouble) setMode(false);
 
-                // 添加 PDF 导出样式（缩小字体、移除装饰）
+                // 添加 PDF 导出样式（固定宽高 794x1123 像素，字体缩小）
                 wrap.classList.add('pdf-export');
 
-                // 获取所有 A4 页面
                 const pages = wrap.querySelectorAll('.a4-page');
                 if (pages.length === 0) {
                     alert('未找到简历页面！');
                     return;
                 }
 
-                // 临时隐藏页码（因为我们要在PDF中不显示页码，或者保留，但保持一致，我们保留）
-                // 我们保留页码，因为预览有页码。
-
-                // 使用 html2canvas 逐个截图
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 const pageWidth = 210;
@@ -824,41 +810,33 @@
 
                 pages.forEach((page, index) => {
                     promiseChain = promiseChain.then(() => {
-                        // 注意：html2canvas 默认会忽略滚动条，但我们需要将整个页面内容截取，高度固定为297mm，但内容可能超出，我们已在样式里缩小。
+                        // 渲染时使用实际像素尺寸（794x1123），不缩放
                         return html2canvas(page, {
-                            scale: 2,
+                            scale: 1,          // 1:1 渲染，与元素实际像素一致
                             useCORS: true,
                             backgroundColor: '#ffffff',
                             logging: false,
-                            width: pageWidth * 2.83465, // mm转px
-                            height: pageHeight * 2.83465,
+                            width: 794,
+                            height: 1123,
                         }).then(canvas => {
                             const imgData = canvas.toDataURL('image/jpeg', 0.95);
-                            if (index > 0) {
-                                pdf.addPage();
-                            }
+                            if (index > 0) pdf.addPage();
+                            // 直接适配到 A4 mm 尺寸，比例相同，不会变形
                             pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
                         });
                     });
                 });
 
                 promiseChain.then(() => {
-                    // 下载PDF
                     pdf.save('戚键_全栈工程师简历_A4四页.pdf');
-
-                    // 恢复状态
-                    wrap.classList.remove('pdf-export');
-                    if (wasDouble) {
-                        setMode(true);
-                    }
-                }).catch(err => {
-                    console.error('PDF生成失败:', err);
-                    alert('生成PDF失败，请重试或检查控制台错误。');
                     // 恢复
                     wrap.classList.remove('pdf-export');
-                    if (wasDouble) {
-                        setMode(true);
-                    }
+                    if (wasDouble) setMode(true);
+                }).catch(err => {
+                    console.error('PDF生成失败:', err);
+                    alert('生成PDF失败，请重试。');
+                    wrap.classList.remove('pdf-export');
+                    if (wasDouble) setMode(true);
                 });
             });
 
