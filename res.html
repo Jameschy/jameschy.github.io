@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>戚键 - 全栈工程师</title>
-    <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js">
+    <!-- 独立引入 html2canvas 和 jspdf，替代 html2pdf 捆绑包 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
     </script>
     <style>
         /* ===== 全局重置 & 动画 ===== */
@@ -16,12 +19,24 @@
             font-family: "Microsoft YaHei", SimSun, system-ui, sans-serif;
         }
         @keyframes pageFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         @keyframes cardSlide {
-            0% { opacity: 0; transform: translateX(-10px); }
-            100% { opacity: 1; transform: translateX(0); }
+            0% {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         body {
             background: linear-gradient(145deg, #f8fafc, #eef6ff);
@@ -262,9 +277,11 @@
 
         /* ===== PDF 导出专用样式（缩小字体/间距，固定像素尺寸） ===== */
         .pdf-export .a4-page {
-            width: 794px !important;   /* 210mm 在 96dpi 下的精确像素 */
-            height: 1123px !important; /* 297mm 在 96dpi 下的精确像素 */
-            padding: 24px !important;  /* 8mm 对应 ≈ 30px，这里用 24px 更紧凑 */
+            width: 794px !important;
+            /* 210mm 在 96dpi 下的精确像素 */
+            height: 1123px !important;
+            /* 297mm 在 96dpi 下的精确像素 */
+            padding: 24px !important;
             font-size: 11px !important;
             line-height: 1.5 !important;
             overflow: hidden !important;
@@ -785,22 +802,31 @@
                 window.print();
             });
 
-            // ---- 下载 PDF（手动逐页截图，固定像素尺寸，完美适配） ----
+            // ---- 下载 PDF（使用独立的 html2canvas + jspdf） ----
             downloadBtn.addEventListener('click', function() {
+                // 检查依赖是否加载
+                if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
+                    alert('PDF 库未加载，请检查网络连接后刷新重试。');
+                    return;
+                }
+
                 const wasDouble = wrap.classList.contains('double-mode');
 
                 // 强制单页
                 if (wasDouble) setMode(false);
 
-                // 添加 PDF 导出样式（固定宽高 794x1123 像素，字体缩小）
+                // 添加 PDF 导出样式
                 wrap.classList.add('pdf-export');
 
                 const pages = wrap.querySelectorAll('.a4-page');
                 if (pages.length === 0) {
                     alert('未找到简历页面！');
+                    wrap.classList.remove('pdf-export');
+                    if (wasDouble) setMode(true);
                     return;
                 }
 
+                // 获取 jsPDF 构造函数（注意全局对象名为 jspdf，其下有 jsPDF 属性）
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 const pageWidth = 210;
@@ -810,9 +836,8 @@
 
                 pages.forEach((page, index) => {
                     promiseChain = promiseChain.then(() => {
-                        // 渲染时使用实际像素尺寸（794x1123），不缩放
                         return html2canvas(page, {
-                            scale: 1,          // 1:1 渲染，与元素实际像素一致
+                            scale: 1,
                             useCORS: true,
                             backgroundColor: '#ffffff',
                             logging: false,
@@ -821,7 +846,6 @@
                         }).then(canvas => {
                             const imgData = canvas.toDataURL('image/jpeg', 0.95);
                             if (index > 0) pdf.addPage();
-                            // 直接适配到 A4 mm 尺寸，比例相同，不会变形
                             pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
                         });
                     });
