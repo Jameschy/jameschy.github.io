@@ -72,7 +72,7 @@ const { t, locale } = useI18n()
 
 useSeoMeta({
   title: () => locale.value === 'en' ? 'About Me' : '关于我',
-  description: () => locale.value === 'en' ? 'Qi Jian, Full-Stack Engineer with 8 years of web development experience.' : '戚键，全栈工程师，8年Web开发经验，擅长前端、后端、独立站开发。',
+  description: () => locale.value === 'en' ? 'Qi Jian, Full-Stack Engineer with 10 years of web development experience.' : '戚键，全栈工程师，10年Web开发经验，擅长前端、后端、独立站开发。',
 })
 
 const skills = [

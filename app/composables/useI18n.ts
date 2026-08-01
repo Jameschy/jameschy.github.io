@@ -32,7 +32,7 @@ const messages: Record<Locale, Record<string, string>> = {
     // ====== 中文部分，theme.night 后面追加 ======
     'about.name': '戚键',
     'about.title': '全栈工程师 · 前端开发 · 独立站开发',
-    'about.location': '深圳 · 8年Web开发经验',
+    'about.location': '深圳 · 10年Web开发经验',
     'about.aboutMe': '关于我',
     'about.skills': '技术栈',
     'about.aboutSite': '关于本站',
@@ -77,7 +77,7 @@ const messages: Record<Locale, Record<string, string>> = {
     // ====== 英文部分，theme.night 后面追加 ======
     'about.name': 'James Chy',
     'about.title': 'Full-Stack Engineer · Frontend Dev · E-commerce Dev',
-    'about.location': 'Shenzhen · 8 Years Web Development',
+    'about.location': 'Shenzhen · 10 Years Web Development',
     'about.aboutMe': 'About Me',
     'about.skills': 'Tech Stack',
     'about.aboutSite': 'About This Site',

@@ -1,5 +1,5 @@
 <template>
-  <article v-if="article" class="max-w-3xl mx-auto px-8 py-10">
+  <article v-if="article" class="max-w-5xl mx-auto px-8 py-10">
     <!-- 文章头部 -->
     <header class="mb-8 pb-6 border-b" :style="{ borderColor: 'var(--c-border)' }">
       <h1 class="text-3xl font-bold mb-3" :style="{ color: 'var(--c-text)' }">{{ article.title }}</h1>

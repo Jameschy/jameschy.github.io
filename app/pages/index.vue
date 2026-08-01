@@ -25,7 +25,7 @@
           }" />
       </div>
 
-      <div class="relative z-10 text-center max-w-3xl px-6 animate-fade-in-up">
+      <div class="relative z-10 text-center max-w-4xl px-6 animate-fade-in-up">
         <div class="inline-flex items-center gap-2 rounded-full px-5 py-1.5 text-sm mb-8 backdrop-blur-xl transition-colors duration-500"
           :style="{ background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', color: 'var(--c-primary-light)' }">
           <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse-slow" />
@@ -137,7 +137,7 @@
     </section>
 
     <!-- ====== 文章列表 ====== -->
-    <section ref="postsSection" class="max-w-3xl mx-auto px-6 pb-20">
+    <section ref="postsSection" class="max-w-4xl mx-auto px-6 pb-20">
       <h2 class="flex items-center gap-2.5 text-2xl font-bold mb-10" :style="{ color: 'var(--c-text)' }">
         <span class="text-3xl">📝</span> {{ t('posts.title') }}
       </h2>

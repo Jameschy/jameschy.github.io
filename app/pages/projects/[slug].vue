@@ -75,7 +75,7 @@
 
     <!-- ====== 右侧：项目内容 ====== -->
     <main class="flex-1 overflow-y-auto transition-colors duration-500" :style="{ background: 'var(--c-bg)' }">
-      <div v-if="project" class="max-w-3xl mx-auto px-8 py-10">
+      <div v-if="project" class="max-w-5xl mx-auto px-8 py-10">
         <!-- 项目头部 -->
         <header class="mb-8 pb-6 border-b" :style="{ borderColor: 'var(--c-border)' }">
           <div class="flex items-center gap-3 mb-2">
