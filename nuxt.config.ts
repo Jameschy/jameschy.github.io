@@ -1,24 +1,18 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+// nuxt.config.ts
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   modules: ['@nuxt/content'],
   content: {
-    // 文章存放目录
-    sources: {
-      content: {
-        driver: 'fs',
-        base: './content/articles'
-      }
-    },
-    // Markdown 解析配置
-    markdown: {
-      toc: { depth: 3, searchDepth: 3 },
-      anchorLinks: true
-    },
+    // 代码高亮
     highlight: {
       theme: 'github-dark',
       langs: ['javascript', 'typescript', 'html', 'css', 'bash', 'json', 'vue']
+    },
+    // Markdown 配置
+    markdown: {
+      toc: { depth: 3, searchDepth: 3 },
+      anchorLinks: true
     }
   }
 })
