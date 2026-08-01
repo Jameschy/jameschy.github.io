@@ -38,7 +38,7 @@
 <script setup lang="ts">
 const route = useRoute()
 const { data: article } = await useAsyncData(`article-${route.params.slug}`, () =>
-  queryContent('/articles').where({ slug: route.params.slug }).findOne()
+  queryContent(route.path).findOne()
 )
 
 function formatDate(d?: string) { return d ? new Date(d).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) : '' }
