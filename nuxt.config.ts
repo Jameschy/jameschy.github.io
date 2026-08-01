@@ -3,6 +3,17 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   modules: ['@nuxt/content', '@nuxtjs/tailwindcss'],
+
+  // GitHub Pages 静态生成
+// 把 nuxt.config.ts 中的 nitro 部分改为：
+nitro: {
+  prerender: {
+    crawlLinks: true,
+    routes: ['/'],
+    failOnError: false,  // ← 关键：遇到 404 不报错
+  },
+},
+
   content: {
     highlight: {
       theme: 'github-dark',
@@ -30,7 +41,6 @@ export default defineNuxtConfig({
             'bounce-slow': 'bounce 2s ease-in-out infinite',
             'blink': 'blink 1s step-end infinite',
             'pulse-slow': 'pulse 2s ease-in-out infinite',
-            'slide-in': 'slideIn 0.3s ease-out',
           },
           keyframes: {
             orbFloat: {
@@ -56,10 +66,6 @@ export default defineNuxtConfig({
             pulse: {
               '0%, 100%': { opacity: '1' },
               '50%': { opacity: '0.4' },
-            },
-            slideIn: {
-              '0%': { opacity: '0', transform: 'translateX(40px)' },
-              '100%': { opacity: '1', transform: 'translateX(0)' },
             },
           },
         },
