@@ -1,132 +1,181 @@
 <template>
-  <div class="home-page">
-    <!-- ====== Hero 区域 ====== -->
-    <section class="hero">
-      <div class="hero-bg">
-        <div class="gradient-orb orb-1"></div>
-        <div class="gradient-orb orb-2"></div>
-        <div class="gradient-orb orb-3"></div>
-        <div class="particles">
-          <span v-for="i in 20" :key="i" class="particle" :style="particleStyle(i)"></span>
-        </div>
+  <div class="overflow-x-hidden">
+    <!-- ====== Hero ====== -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-700"
+      :style="{ background: `linear-gradient(135deg, var(--c-hero-from) 0%, var(--c-hero-via) 50%, var(--c-hero-to) 100%)` }">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute w-[500px] h-[500px] rounded-full blur-[80px] -top-[10%] -left-[5%] animate-orb-float"
+          :style="{ background: `radial-gradient(circle, var(--c-orb-1), transparent)` }" />
+        <div class="absolute w-[400px] h-[400px] rounded-full blur-[80px] -bottom-[10%] -right-[5%] animate-orb-float"
+          :style="{ background: `radial-gradient(circle, var(--c-orb-2), transparent)`, animationDelay: '-4s' }" />
+        <div class="absolute w-[350px] h-[350px] rounded-full blur-[80px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-orb-float"
+          :style="{ background: `radial-gradient(circle, var(--c-orb-3), transparent)`, animationDelay: '-8s' }" />
       </div>
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="badge-dot"></span> Nuxt 4 驱动
+
+      <div class="absolute inset-0 pointer-events-none">
+        <span v-for="i in 20" :key="i" class="absolute bottom-0 rounded-full animate-particle-rise"
+          :style="{
+            left: Math.random() * 100 + '%',
+            animationDelay: Math.random() * 8 + 's',
+            animationDuration: 8 + Math.random() * 12 + 's',
+            width: 2 + Math.random() * 4 + 'px',
+            height: 2 + Math.random() * 4 + 'px',
+            opacity: 0.3 + Math.random() * 0.5,
+            background: 'var(--c-primary-light)',
+          }" />
+      </div>
+
+      <div class="relative z-10 text-center max-w-3xl px-6 animate-fade-in-up">
+        <div class="inline-flex items-center gap-2 rounded-full px-5 py-1.5 text-sm mb-8 backdrop-blur-xl transition-colors duration-500"
+          :style="{ background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', color: 'var(--c-primary-light)' }">
+          <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse-slow" />
+          {{ t('hero.badge') }}
         </div>
-        <h1 class="hero-title">
-          <span class="title-line">詹姆斯的博客</span>
-          <span class="title-sub">记录思考，分享技术</span>
+
+        <h1 class="mb-6">
+          <span class="block text-[clamp(36px,8vw,64px)] font-extrabold leading-tight bg-gradient-to-r from-white via-[var(--c-primary-light)] to-[var(--c-accent)] bg-clip-text text-transparent">
+            {{ t('site.title') }}
+          </span>
+          <span class="block text-[clamp(18px,3vw,24px)] font-normal mt-2 transition-colors duration-500"
+            :style="{ color: 'var(--c-hero-text-muted)' }">
+            {{ t('site.subtitle') }}
+          </span>
         </h1>
-        <p class="hero-desc">
-          <span class="typing-text">{{ displayedText }}</span><span class="cursor">|</span>
+
+        <p class="text-lg mb-10 min-h-[28px] transition-colors duration-500" :style="{ color: 'var(--c-hero-text-muted)' }">
+          <span>{{ displayedText }}</span><span class="font-light animate-blink" :style="{ color: 'var(--c-primary)' }">|</span>
         </p>
-        <div class="hero-actions">
-          <NuxtLink to="/articles" class="btn-primary">
-            <span>浏览文章</span>
+
+        <div class="flex gap-4 justify-center flex-wrap mb-12">
+          <NuxtLink to="/articles" class="inline-flex items-center gap-2 px-8 py-3.5 text-white font-semibold rounded-full shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+            :style="{ background: 'linear-gradient(135deg, var(--c-primary), var(--c-primary-dark))', boxShadow: '0 4px 20px var(--c-card-shadow)' }">
+            <span>{{ t('hero.articles') }}</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </NuxtLink>
-          <NuxtLink to="/resume" class="btn-secondary">
-            <span>我的简历</span>
+          <NuxtLink to="/resume" class="inline-flex items-center gap-2 px-8 py-3.5 font-semibold rounded-full backdrop-blur-xl transition-all duration-300 hover:border-[var(--c-primary)]"
+            :style="{ background: 'var(--c-btn-secondary-bg)', color: 'var(--c-text)', border: '1px solid var(--c-border)' }">
+            <span>{{ t('hero.resume') }}</span>
           </NuxtLink>
         </div>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-num">{{ posts?.length || 0 }}</span>
-            <span class="stat-label">篇文章</span>
+
+        <div class="flex items-center justify-center">
+          <div class="text-center px-7">
+            <span class="block text-3xl font-extrabold bg-gradient-to-r from-[var(--c-primary)] to-[var(--c-primary-light)] bg-clip-text text-transparent">{{ posts?.length || 0 }}</span>
+            <span class="text-sm transition-colors duration-500" :style="{ color: 'var(--c-text-muted)' }">{{ t('hero.posts') }}</span>
           </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <span class="stat-num">{{ tagCount }}</span>
-            <span class="stat-label">个标签</span>
+          <div class="w-px h-10" :style="{ background: 'var(--c-border)' }"></div>
+          <div class="text-center px-7">
+            <span class="block text-3xl font-extrabold bg-gradient-to-r from-[var(--c-primary)] to-[var(--c-primary-light)] bg-clip-text text-transparent">{{ tagCount }}</span>
+            <span class="text-sm transition-colors duration-500" :style="{ color: 'var(--c-text-muted)' }">{{ t('hero.tags') }}</span>
           </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <span class="stat-num">10+</span>
-            <span class="stat-label">年经验</span>
+          <div class="w-px h-10" :style="{ background: 'var(--c-border)' }"></div>
+          <div class="text-center px-7">
+            <span class="block text-3xl font-extrabold bg-gradient-to-r from-[var(--c-primary)] to-[var(--c-primary-light)] bg-clip-text text-transparent">10+</span>
+            <span class="text-sm transition-colors duration-500" :style="{ color: 'var(--c-text-muted)' }">{{ t('hero.exp') }}</span>
           </div>
         </div>
       </div>
-      <div class="scroll-indicator" @click="scrollToPosts">
-        <span>向下滚动</span>
+
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-sm cursor-pointer animate-bounce-slow transition-colors duration-500"
+        :style="{ color: 'var(--c-text-muted)' }" @click="scrollToPosts">
+        <span>{{ t('hero.scroll') }}</span>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
       </div>
     </section>
 
     <!-- ====== 精选轮播 ====== -->
-    <section class="featured-section" v-if="posts?.length">
-      <div class="section-head">
-        <h2 class="section-title">
-          <span class="title-icon">✨</span> 精选文章
+    <section v-if="posts?.length" class="max-w-5xl mx-auto px-6 py-20">
+      <div class="flex items-center justify-between mb-10">
+        <h2 class="flex items-center gap-2.5 text-2xl font-bold" :style="{ color: 'var(--c-text)' }">
+          <span class="text-3xl">✨</span> {{ t('featured.title') }}
         </h2>
-        <NuxtLink to="/articles" class="view-all">查看全部 →</NuxtLink>
+        <NuxtLink to="/articles" class="text-sm font-medium transition-colors" :style="{ color: 'var(--c-primary-light)' }">{{ t('featured.viewAll') }}</NuxtLink>
       </div>
-      <div class="carousel-wrap">
-        <button class="carousel-btn prev" @click="prevSlide" :disabled="currentSlide === 0">
+
+      <div class="flex items-center gap-4 relative">
+        <button class="shrink-0 w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed transition-all z-10" :style="{ border: '1px solid var(--c-border)', background: 'var(--c-surface)', color: 'var(--c-text)' }" :disabled="currentSlide === 0" @click="prevSlide">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
-        <div class="carousel-track" ref="carouselTrack">
-          <div class="carousel-slide" v-for="(post, idx) in posts" :key="post._path" :class="{ active: idx === currentSlide }">
-            <div class="featured-card" :style="{ animationDelay: (idx - currentSlide) * 0.1 + 's' }">
-              <div class="card-glow"></div>
-              <div class="card-content">
-                <div class="card-meta">
-                  <span class="card-date">{{ formatDate(post.date) }}</span>
-                  <span class="card-tag" v-if="post.tags?.[0]">{{ post.tags[0] }}</span>
+
+        <div class="flex-1 overflow-hidden relative min-h-[280px]">
+          <div v-for="(post, idx) in posts" :key="post._path"
+            class="absolute inset-0 transition-all duration-500 ease-out"
+            :class="idx === currentSlide ? 'opacity-100 translate-x-0 pointer-events-auto' : 'opacity-0 translate-x-10 pointer-events-none'">
+            <div class="relative rounded-2xl p-9 overflow-hidden h-full transition-colors duration-500"
+              :style="{ background: 'var(--c-surface)', border: '1px solid var(--c-border)' }">
+              <div class="absolute -top-1/2 -right-1/5 w-[300px] h-[300px] pointer-events-none"
+                :style="{ background: `radial-gradient(circle, var(--c-card-shadow), transparent)` }" />
+              <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-4">
+                  <span class="text-sm" :style="{ color: 'var(--c-text-muted)' }">{{ formatDate(post.date) }}</span>
+                  <span v-if="post.tags?.[0]" class="text-xs px-2.5 py-1 rounded-full" :style="{ background: 'rgba(99,102,241,0.15)', color: 'var(--c-primary-light)' }">{{ post.tags[0] }}</span>
                 </div>
-                <h3 class="card-title">
-                  <NuxtLink :to="post._path">{{ post.title }}</NuxtLink>
+                <h3 class="text-2xl font-bold mb-3" :style="{ color: 'var(--c-text)' }">
+                  <NuxtLink :to="post._path" class="hover:underline">{{ post.title }}</NuxtLink>
                 </h3>
-                <p class="card-desc">{{ post.description || '点击阅读全文...' }}</p>
-                <NuxtLink :to="post._path" class="card-link">
-                  阅读文章
+                <p class="text-sm leading-relaxed mb-5" :style="{ color: 'var(--c-text-muted)' }">{{ post.description || '...' }}</p>
+                <NuxtLink :to="post._path" class="inline-flex items-center gap-1.5 text-sm font-semibold hover:gap-2.5 transition-all"
+                  :style="{ color: 'var(--c-primary-light)' }">
+                  {{ t('featured.read') }}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </NuxtLink>
               </div>
             </div>
           </div>
         </div>
-        <button class="carousel-btn next" @click="nextSlide" :disabled="currentSlide >= (posts?.length || 1) - 1">
+
+        <button class="shrink-0 w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed transition-all z-10" :style="{ border: '1px solid var(--c-border)', background: 'var(--c-surface)', color: 'var(--c-text)' }" :disabled="currentSlide >= (posts?.length || 1) - 1" @click="nextSlide">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </button>
       </div>
-      <div class="carousel-dots">
-        <button v-for="(_, idx) in posts" :key="idx" class="dot" :class="{ active: idx === currentSlide }" @click="currentSlide = idx"></button>
+
+      <div class="flex justify-center gap-2 mt-6">
+        <button v-for="(_, idx) in posts" :key="idx" class="h-2.5 rounded-full border-none cursor-pointer transition-all duration-300"
+          :style="{ background: idx === currentSlide ? 'var(--c-primary)' : 'var(--c-border)' }"
+          :class="idx === currentSlide ? 'w-7 rounded-xl' : 'w-2.5'" @click="currentSlide = idx" />
       </div>
     </section>
 
     <!-- ====== 文章列表 ====== -->
-    <section class="posts-section" ref="postsSection">
-      <div class="section-head">
-        <h2 class="section-title">
-          <span class="title-icon">📝</span> 最新文章
-        </h2>
-      </div>
-      <div class="posts-grid" v-if="posts?.length">
-        <article v-for="(post, idx) in posts" :key="post._path" class="post-card" :style="{ animationDelay: idx * 0.08 + 's' }">
-          <div class="post-card-inner">
-            <div class="post-date-badge">
-              <span class="post-day">{{ getDay(post.date) }}</span>
-              <span class="post-month">{{ getMonth(post.date) }}</span>
+    <section ref="postsSection" class="max-w-3xl mx-auto px-6 pb-20">
+      <h2 class="flex items-center gap-2.5 text-2xl font-bold mb-10" :style="{ color: 'var(--c-text)' }">
+        <span class="text-3xl">📝</span> {{ t('posts.title') }}
+      </h2>
+
+      <div v-if="posts?.length" class="flex flex-col gap-4">
+        <article v-for="(post, idx) in posts" :key="post._path" class="group" :style="{ animationDelay: idx * 0.08 + 's' }">
+          <div class="flex items-center gap-5 rounded-2xl p-5 cursor-default transition-all duration-300 hover:translate-x-1.5 hover:shadow-lg"
+            :style="{
+              background: 'var(--c-surface)',
+              border: '1px solid var(--c-border)',
+              boxShadow: '0 4px 20px var(--c-card-shadow)',
+            }">
+            <div class="shrink-0 w-14 text-center rounded-xl py-2"
+              :style="{ background: 'linear-gradient(135deg, var(--c-primary), var(--c-primary-dark))' }">
+              <span class="block text-xl font-extrabold text-white leading-none">{{ getDay(post.date) }}</span>
+              <span class="block text-xs text-white/80 mt-0.5">{{ getMonth(post.date) }}</span>
             </div>
-            <div class="post-info">
-              <h3 class="post-title">
-                <NuxtLink :to="post._path">{{ post.title }}</NuxtLink>
+
+            <div class="flex-1 min-w-0">
+              <h3 class="text-lg font-semibold mb-1.5" :style="{ color: 'var(--c-text)' }">
+                <NuxtLink :to="post._path" class="hover:underline">{{ post.title }}</NuxtLink>
               </h3>
-              <p class="post-desc" v-if="post.description">{{ post.description }}</p>
-              <div class="post-tags" v-if="post.tags?.length">
-                <span v-for="tag in post.tags" :key="tag" class="post-tag">{{ tag }}</span>
+              <p v-if="post.description" class="text-sm mb-2 truncate" :style="{ color: 'var(--c-text-muted)' }">{{ post.description }}</p>
+              <div v-if="post.tags?.length" class="flex gap-1.5 flex-wrap">
+                <span v-for="tag in post.tags" :key="tag" class="text-xs px-2 py-0.5 rounded-full" :style="{ background: 'rgba(99,102,241,0.1)', color: 'var(--c-primary-light)' }">{{ tag }}</span>
               </div>
             </div>
-            <NuxtLink :to="post._path" class="post-arrow">
+
+            <NuxtLink :to="post._path" class="shrink-0 group-hover:translate-x-1 transition-all" :style="{ color: 'var(--c-text-muted)' }">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </NuxtLink>
           </div>
         </article>
       </div>
-      <div v-else class="empty-state">
-        <div class="empty-icon">📭</div>
-        <p>还没有文章，在 <code>content/</code> 目录下创建吧</p>
+
+      <div v-else class="text-center py-20" :style="{ color: 'var(--c-text-muted)' }">
+        <div class="text-5xl mb-4">📭</div>
+        <p>{{ t('posts.empty') }}，<code class="px-2 py-0.5 rounded text-sm" :style="{ background: 'var(--c-surface)', color: 'var(--c-primary-light)' }">content/</code> {{ t('posts.emptyHint') }}</p>
       </div>
     </section>
   </div>
@@ -135,545 +184,40 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 
-useHead({ title: '詹姆斯的博客 - 记录日常开发idea' })
+const { t } = useI18n()
+useHead({ title: computed(() => `${t('site.title')} - ${t('site.subtitle')}`) })
 
-// 获取文章数据
 const { data: posts } = await useAsyncData('home-posts', () =>
   queryContent('/').sort({ date: -1 }).find()
 )
 
-// 计算标签数量
 const tagCount = computed(() => {
   const tags = new Set<string>()
-  posts.value?.forEach(p => p.tags?.forEach((t: string) => tags.add(t)))
+  posts.value?.forEach((p: any) => p.tags?.forEach((tag: string) => tags.add(tag)))
   return tags.size
 })
 
-// 打字机效果
-const fullText = '记录日常开发idea、遇到的问题、解决方法、学习进度等！'
+const fullText = computed(() => t('site.desc'))
 const displayedText = ref('')
-let typeTimer: ReturnType<typeof setInterval> | null = null
-
+let timer: ReturnType<typeof setInterval> | null = null
 onMounted(() => {
-  let idx = 0
-  typeTimer = setInterval(() => {
-    if (idx <= fullText.length) {
-      displayedText.value = fullText.slice(0, idx)
-      idx++
-    } else {
-      clearInterval(typeTimer!)
-    }
+  let i = 0
+  const text = fullText.value
+  timer = setInterval(() => {
+    if (i <= text.length) displayedText.value = text.slice(0, i++)
+    else clearInterval(timer!)
   }, 80)
 })
+onUnmounted(() => { if (timer) clearInterval(timer) })
 
-onUnmounted(() => {
-  if (typeTimer) clearInterval(typeTimer)
-})
-
-// 轮播
 const currentSlide = ref(0)
-const carouselTrack = ref<HTMLElement | null>(null)
+function nextSlide() { if (posts.value && currentSlide.value < posts.value.length - 1) currentSlide.value++ }
+function prevSlide() { if (currentSlide.value > 0) currentSlide.value-- }
 
-function nextSlide() {
-  if (posts.value && currentSlide.value < posts.value.length - 1) {
-    currentSlide.value++
-  }
-}
-function prevSlide() {
-  if (currentSlide.value > 0) currentSlide.value--
-}
+const postsSection = ref<HTMLElement | null>(null)
+function scrollToPosts() { postsSection.value?.scrollIntoView({ behavior: 'smooth' }) }
 
-// 滚动到文章区
-function scrollToPosts() {
-  document.getElementById('posts')?.scrollIntoView({ behavior: 'smooth' })
-}
-
-// 格式化工具
-function formatDate(dateStr?: string): string {
-  if (!dateStr) return ''
-  return new Date(dateStr).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
-}
-function getDay(dateStr?: string): string {
-  if (!dateStr) return ''
-  return new Date(dateStr).getDate().toString().padStart(2, '0')
-}
-function getMonth(dateStr?: string): string {
-  if (!dateStr) return ''
-  return (new Date(dateStr).getMonth() + 1) + '月'
-}
-
-// 粒子随机样式
-function particleStyle(i: number) {
-  return {
-    left: Math.random() * 100 + '%',
-    animationDelay: Math.random() * 8 + 's',
-    animationDuration: 8 + Math.random() * 12 + 's',
-    width: 2 + Math.random() * 4 + 'px',
-    height: 2 + Math.random() * 4 + 'px',
-    opacity: 0.3 + Math.random() * 0.5,
-  }
-}
+function formatDate(d?: string) { return d ? new Date(d).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) : '' }
+function getDay(d?: string) { return d ? new Date(d).getDate().toString().padStart(2, '0') : '' }
+function getMonth(d?: string) { return d ? (new Date(d).getMonth() + 1) + '月' : '' }
 </script>
-
-<style scoped>
-/* ====== 基础变量 ====== */
-.home-page {
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --primary-light: #a5b4fc;
-  --accent: #f59e0b;
-  --bg: #0f172a;
-  --surface: #1e293b;
-  --text: #f1f5f9;
-  --text-muted: #94a3b8;
-  --border: #334155;
-  color: var(--text);
-  overflow-x: hidden;
-}
-
-/* ====== Hero ====== */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-}
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.gradient-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  animation: orbFloat 12s ease-in-out infinite;
-}
-.orb-1 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(99,102,241,0.3), transparent);
-  top: -10%; left: -5%;
-  animation-delay: 0s;
-}
-.orb-2 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(245,158,11,0.2), transparent);
-  bottom: -10%; right: -5%;
-  animation-delay: -4s;
-}
-.orb-3 {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, rgba(99,102,241,0.25), transparent);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation-delay: -8s;
-}
-@keyframes orbFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(30px, -30px) scale(1.05); }
-  50% { transform: translate(-20px, 20px) scale(0.95); }
-  75% { transform: translate(-30px, -10px) scale(1.02); }
-}
-
-.particles {
-  position: absolute; inset: 0;
-}
-.particle {
-  position: absolute; bottom: -10px;
-  background: var(--primary-light);
-  border-radius: 50%;
-  animation: particleRise linear infinite;
-}
-@keyframes particleRise {
-  0% { transform: translateY(0) scale(0); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(-110vh) scale(1); opacity: 0; }
-}
-
-.hero-content {
-  position: relative; z-index: 1;
-  text-align: center;
-  max-width: 720px;
-  padding: 0 24px;
-  animation: fadeInUp 1s ease-out;
-}
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(99,102,241,0.15);
-  border: 1px solid rgba(99,102,241,0.3);
-  border-radius: 50px;
-  padding: 6px 20px;
-  font-size: 14px;
-  color: var(--primary-light);
-  margin-bottom: 32px;
-  backdrop-filter: blur(10px);
-}
-.badge-dot {
-  width: 8px; height: 8px;
-  background: #22c55e;
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-.hero-title {
-  margin-bottom: 24px;
-}
-.title-line {
-  display: block;
-  font-size: clamp(36px, 8vw, 64px);
-  font-weight: 800;
-  background: linear-gradient(135deg, #fff 0%, #a5b4fc 50%, #f59e0b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.2;
-  margin-bottom: 8px;
-}
-.title-sub {
-  display: block;
-  font-size: clamp(18px, 3vw, 24px);
-  color: var(--text-muted);
-  font-weight: 400;
-}
-
-.hero-desc {
-  font-size: 18px;
-  color: var(--text-muted);
-  margin-bottom: 40px;
-  min-height: 28px;
-}
-.cursor {
-  animation: blink 1s step-end infinite;
-  color: var(--primary);
-  font-weight: 300;
-}
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.hero-actions {
-  display: flex; gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 48px;
-}
-.btn-primary, .btn-secondary {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 32px;
-  border-radius: 50px;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-.btn-primary {
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
-  color: #fff;
-  box-shadow: 0 4px 20px rgba(99,102,241,0.4);
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(99,102,241,0.5);
-}
-.btn-secondary {
-  background: rgba(255,255,255,0.05);
-  color: var(--text);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(10px);
-}
-.btn-secondary:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: var(--primary);
-}
-
-.hero-stats {
-  display: flex; align-items: center; justify-content: center; gap: 0;
-}
-.stat-item {
-  text-align: center;
-  padding: 0 28px;
-}
-.stat-num {
-  display: block;
-  font-size: 32px;
-  font-weight: 800;
-  background: linear-gradient(135deg, #6366f1, #a5b4fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.stat-label {
-  font-size: 14px;
-  color: var(--text-muted);
-}
-.stat-divider {
-  width: 1px; height: 40px;
-  background: var(--border);
-}
-
-.scroll-indicator {
-  position: absolute; bottom: 32px; left: 50%;
-  transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: var(--text-muted);
-  font-size: 13px;
-  cursor: pointer;
-  animation: bounce 2s ease-in-out infinite;
-}
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
-}
-
-/* ====== 精选轮播 ====== */
-.featured-section {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 80px 24px 40px;
-}
-.section-head {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 40px;
-}
-.section-title {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 28px; font-weight: 700; color: var(--text);
-}
-.title-icon { font-size: 32px; }
-.view-all {
-  color: var(--primary-light);
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.view-all:hover { color: #fff; }
-
-.carousel-wrap {
-  display: flex; align-items: center; gap: 16px;
-  position: relative;
-}
-.carousel-btn {
-  flex-shrink: 0;
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-  z-index: 2;
-}
-.carousel-btn:hover:not(:disabled) {
-  background: var(--primary);
-  border-color: var(--primary);
-}
-.carousel-btn:disabled {
-  opacity: 0.3; cursor: not-allowed;
-}
-.carousel-track {
-  flex: 1; overflow: hidden;
-  position: relative;
-  min-height: 280px;
-}
-.carousel-slide {
-  position: absolute; inset: 0;
-  opacity: 0;
-  transform: translateX(40px);
-  transition: all 0.5s ease;
-  pointer-events: none;
-}
-.carousel-slide.active {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-}
-
-.featured-card {
-  position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 36px;
-  overflow: hidden;
-  height: 100%;
-}
-.card-glow {
-  position: absolute;
-  top: -50%; right: -20%;
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(99,102,241,0.1), transparent);
-  pointer-events: none;
-}
-.card-content { position: relative; z-index: 1; }
-.card-meta {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 16px;
-}
-.card-date { font-size: 14px; color: var(--text-muted); }
-.card-tag {
-  font-size: 12px;
-  padding: 3px 10px;
-  border-radius: 50px;
-  background: rgba(99,102,241,0.15);
-  color: var(--primary-light);
-}
-.card-title {
-  font-size: 24px; font-weight: 700; margin-bottom: 12px;
-}
-.card-title a {
-  color: var(--text); text-decoration: none;
-  transition: color 0.2s;
-}
-.card-title a:hover { color: var(--primary-light); }
-.card-desc {
-  font-size: 15px; color: var(--text-muted);
-  line-height: 1.7; margin-bottom: 20px;
-}
-.card-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  color: var(--primary-light);
-  text-decoration: none;
-  font-size: 14px; font-weight: 600;
-  transition: gap 0.2s;
-}
-.card-link:hover { gap: 10px; }
-
-.carousel-dots {
-  display: flex; justify-content: center; gap: 8px;
-  margin-top: 24px;
-}
-.dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  border: none;
-  background: var(--border);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.dot.active {
-  background: var(--primary);
-  width: 28px;
-  border-radius: 12px;
-}
-
-/* ====== 文章列表 ====== */
-.posts-section {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 24px 80px;
-}
-.posts-grid {
-  display: flex; flex-direction: column; gap: 16px;
-}
-.post-card {
-  animation: fadeInUp 0.5s ease-out both;
-  opacity: 0;
-}
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.post-card-inner {
-  display: flex; align-items: center; gap: 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px 24px;
-  transition: all 0.3s ease;
-  cursor: default;
-}
-.post-card-inner:hover {
-  border-color: var(--primary);
-  transform: translateX(6px);
-  box-shadow: 0 8px 30px rgba(99,102,241,0.1);
-}
-.post-date-badge {
-  flex-shrink: 0;
-  width: 56px;
-  text-align: center;
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
-  border-radius: 12px;
-  padding: 8px 0;
-}
-.post-day {
-  display: block;
-  font-size: 22px; font-weight: 800;
-  color: #fff; line-height: 1;
-}
-.post-month {
-  display: block;
-  font-size: 12px; color: rgba(255,255,255,0.8);
-  margin-top: 2px;
-}
-.post-info { flex: 1; min-width: 0; }
-.post-title {
-  font-size: 17px; font-weight: 600; margin-bottom: 6px;
-}
-.post-title a {
-  color: var(--text); text-decoration: none;
-  transition: color 0.2s;
-}
-.post-title a:hover { color: var(--primary-light); }
-.post-desc {
-  font-size: 14px; color: var(--text-muted);
-  margin-bottom: 8px;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.post-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.post-tag {
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 50px;
-  background: rgba(99,102,241,0.1);
-  color: var(--primary-light);
-}
-.post-arrow {
-  flex-shrink: 0;
-  color: var(--text-muted);
-  transition: all 0.2s;
-  text-decoration: none;
-  display: flex;
-}
-.post-card-inner:hover .post-arrow {
-  color: var(--primary);
-  transform: translateX(4px);
-}
-
-/* ====== 空状态 ====== */
-.empty-state {
-  text-align: center; padding: 80px 0;
-  color: var(--text-muted);
-}
-.empty-icon { font-size: 48px; margin-bottom: 16px; }
-.empty-state code {
-  background: var(--surface); color: var(--primary-light);
-  padding: 2px 8px; border-radius: 4px; font-size: 14px;
-}
-
-/* ====== 响应式 ====== */
-@media (max-width: 768px) {
-  .hero-stats { flex-direction: column; gap: 16px; }
-  .stat-divider { width: 40px; height: 1px; }
-  .carousel-wrap { flex-direction: column; }
-  .carousel-btn { display: none; }
-  .post-card-inner { flex-direction: column; align-items: flex-start; }
-  .post-date-badge { flex-direction: row; width: auto; display: flex; gap: 4px; align-items: baseline; padding: 4px 12px; }
-  .post-day { font-size: 16px; }
-}
-</style>
