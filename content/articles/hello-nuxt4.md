@@ -1,6 +1,7 @@
 ---
 title: 你好，Nuxt4
 date: 2026-08-01
+description: 这是我的第一篇 Nuxt4 博客文章。`
 tags: [Nuxt, 博客]
 ---
 

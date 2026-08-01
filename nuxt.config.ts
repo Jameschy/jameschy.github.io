@@ -2,17 +2,43 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxt/content', '@nuxtjs/tailwindcss'],
+  modules: ['@nuxt/content', '@nuxtjs/tailwindcss', '@nuxtjs/sitemap'],
+
+  // ====== 全局 SEO ======
+  site: {
+    url: 'https://jameschy.github.io',
+    name: 'Jameschy Blog',
+  },
+  app: {
+    head: {
+      titleTemplate: '%s - Jameschy Blog',
+      htmlAttrs: { lang: 'zh-CN' },
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: 'Jameschy 的个人博客，分享前端开发、Linux运维、PHP等技术文章。' },
+        { name: 'keywords', content: '博客,前端,Linux,PHP,Nuxt,Vue,SEO' },
+        { name: 'author', content: 'Jameschy' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'Jameschy Blog' },
+        { property: 'og:image', content: '/static/img/og-image.jpg' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'canonical', href: 'https://jameschy.github.io' },
+      ],
+    },
+  },
 
   // GitHub Pages 静态生成
-// 把 nuxt.config.ts 中的 nitro 部分改为：
-nitro: {
-  prerender: {
-    crawlLinks: true,
-    routes: ['/'],
-    failOnError: false,  // ← 关键：遇到 404 不报错
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ['/'],
+      failOnError: false,
+    },
   },
-},
 
   content: {
     highlight: {
@@ -24,6 +50,7 @@ nitro: {
       anchorLinks: true
     }
   },
+
   tailwindcss: {
     config: {
       theme: {
@@ -49,24 +76,9 @@ nitro: {
               '50%': { transform: 'translate(-20px, 20px) scale(0.95)' },
               '75%': { transform: 'translate(-30px, -10px) scale(1.02)' },
             },
-            fadeInUp: {
-              '0%': { opacity: '0', transform: 'translateY(40px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            particleRise: {
-              '0%': { transform: 'translateY(0) scale(0)', opacity: '0' },
-              '10%': { opacity: '1' },
-              '90%': { opacity: '1' },
-              '100%': { transform: 'translateY(-110vh) scale(1)', opacity: '0' },
-            },
-            blink: {
-              '0%, 100%': { opacity: '1' },
-              '50%': { opacity: '0' },
-            },
-            pulse: {
-              '0%, 100%': { opacity: '1' },
-              '50%': { opacity: '0.4' },
-            },
+            particleRise: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '20%': { opacity: '1' }, '100%': { transform: 'translateY(-100vh)', opacity: '0' } },
+            fadeInUp: { '0%': { transform: 'translateY(30px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+            blink: { '0%, 100%': { opacity: '1' }, '50%': { opacity: '0' } },
           },
         },
       },

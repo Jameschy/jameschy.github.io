@@ -41,5 +41,31 @@ const { data: article } = await useAsyncData(`article-${route.params.slug}`, () 
   queryContent(route.path).findOne()
 )
 
+// ====== 动态 SEO ======
+useSeoMeta({
+  title: () => article.value?.title || '文章详情',
+  description: () => article.value?.description || article.value?.title || '',
+  ogTitle: () => article.value?.title || '',
+  ogDescription: () => article.value?.description || article.value?.title || '',
+  ogType: 'article',
+  articlePublishedTime: () => article.value?.date || '',
+  articleTag: () => article.value?.tags || [],
+})
+
+// ====== JSON-LD 结构化数据 ======
+useHead(() => ({
+  script: article.value ? [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: article.value.title,
+      description: article.value.description || article.value.title,
+      datePublished: article.value.date,
+      author: { '@type': 'Person', name: 'Jameschy' },
+    }),
+  }] : [],
+}))
+
 function formatDate(d?: string) { return d ? new Date(d).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) : '' }
 </script>

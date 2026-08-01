@@ -182,6 +182,14 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Jameschy Blog - 个人技术博客',
+  description: '分享前端开发、Linux运维、PHP、Nuxt等技术的个人博客，记录学习与成长。',
+  ogTitle: 'Jameschy Blog - 个人技术博客',
+  ogDescription: '分享前端开发、Linux运维、PHP、Nuxt等技术的个人博客。',
+  ogImage: '/static/img/og-image.jpg',
+  ogUrl: 'https://jameschy.github.io',
+})
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const { t } = useI18n()

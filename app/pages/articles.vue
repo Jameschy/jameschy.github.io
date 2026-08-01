@@ -103,6 +103,10 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: '文章列表',
+  description: '浏览所有技术文章，按时间或分类筛选。',
+})
 import { categories } from '~/config/categories'
 
 const route = useRoute()

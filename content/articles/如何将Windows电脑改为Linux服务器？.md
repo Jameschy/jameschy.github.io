@@ -1,6 +1,7 @@
 ---
 title: 如何将Windows电脑改为Linux服务器？
 date: 2026-08-01
+description: 本地办公电脑闲置，可以改造成Linux服务器用于本地开发备份数据，是再好不过了。
 tags: [Linux, 服务器, 运维, Nginx, Docker, Shell]
 ---
 
