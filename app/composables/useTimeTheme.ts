@@ -11,7 +11,7 @@ export function useTimeTheme() {
     const h = new Date().getHours()
     if (h >= 4 && h < 9) return 'morning'
     if (h >= 9 && h < 16) return 'day'
-    if (h >= 16 && h < 20) return 'dusk'
+    if (h >= 16 && h < 18) return 'dusk'
     return 'night'
   }
 
