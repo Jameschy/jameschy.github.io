@@ -9,8 +9,10 @@
         <div class="flex items-center gap-2 mb-3">
           <span class="text-lg">{{ project?.icon || '🚀' }}</span>
           <span class="text-sm font-bold truncate" :style="{ color: 'var(--c-text)' }">{{ project?.title }}</span>
-          <button class="ml-auto flex items-center justify-center w-6 h-6 rounded hover:opacity-70 shrink-0"
-            :style="{ color: 'var(--c-text-muted)' }" @click="sidebarCollapsed = true" title="折叠">
+          <button class="ml-auto flex items-center justify-center w-8 h-8 rounded-lg hover:opacity-70 transition-all shrink-0 cursor-pointer"
+            :style="{ color: 'var(--c-text-muted)' }" @click="sidebarCollapsed = true" title="折叠"
+            @mouseenter="(e: any) => e.target.style.background = 'var(--c-bg)'"
+            @mouseleave="(e: any) => e.target.style.background = 'transparent'">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 19l-7-7 7-7M18 19l-7-7 7-7"/></svg>
           </button>
         </div>

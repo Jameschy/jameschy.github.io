@@ -8,8 +8,10 @@
       <div class="p-4 border-b sticky top-0 z-10 backdrop-blur-sm" :style="{ borderColor: 'var(--c-border)', background: 'var(--c-surface)' }">
         <div class="flex items-center gap-2 mb-3">
           <span class="text-xs font-semibold" :style="{ color: 'var(--c-text-muted)' }">导航</span>
-          <button class="ml-auto flex items-center justify-center w-6 h-6 rounded hover:opacity-70 transition-opacity shrink-0"
-            :style="{ color: 'var(--c-text-muted)' }" @click="sidebarCollapsed = true" title="折叠侧边栏">
+          <button class="ml-auto flex items-center justify-center w-8 h-8 rounded-lg hover:opacity-70 transition-all shrink-0 cursor-pointer"
+            :style="{ color: 'var(--c-text-muted)' }" @click="sidebarCollapsed = true" title="折叠侧边栏"
+            @mouseenter="(e: any) => e.target.style.background = 'var(--c-bg)'"
+            @mouseleave="(e: any) => e.target.style.background = 'transparent'">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 19l-7-7 7-7M18 19l-7-7 7-7"/></svg>
           </button>
         </div>
