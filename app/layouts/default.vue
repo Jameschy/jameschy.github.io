@@ -25,6 +25,7 @@
         <nav class="hidden md:flex gap-1">
           <NuxtLink to="/" class="nav-link" :style="navStyle">{{ t('nav.home') }}</NuxtLink>
           <NuxtLink to="/articles" class="nav-link" :style="navStyle">{{ t('nav.articles') }}</NuxtLink>
+          <NuxtLink to="/projects" class="nav-link" :style="navStyle">{{ t('nav.projects') }}</NuxtLink>
           <NuxtLink to="/resume" class="nav-link" :style="navStyle">{{ t('nav.resume') }}</NuxtLink>
           <NuxtLink to="/about" class="nav-link" :style="navStyle">{{ t('nav.about') }}</NuxtLink>
         </nav>
@@ -39,6 +40,7 @@
       <div v-if="menuOpen" class="md:hidden rounded-xl p-2 mt-2 backdrop-blur-xl" :style="{ background: 'var(--c-header-bg)', border: '1px solid var(--c-border)' }">
         <NuxtLink to="/" class="block px-4 py-3 rounded-lg transition-colors" :style="{ color: 'var(--c-text-muted)' }" @click="menuOpen = false">{{ t('nav.home') }}</NuxtLink>
         <NuxtLink to="/articles" class="block px-4 py-3 rounded-lg transition-colors" :style="{ color: 'var(--c-text-muted)' }" @click="menuOpen = false">{{ t('nav.articles') }}</NuxtLink>
+        <NuxtLink to="/projects" class="block px-4 py-3 rounded-lg transition-colors" :style="{ color: 'var(--c-text-muted)' }" @click="menuOpen = false">{{ t('nav.projects') }}</NuxtLink>
         <NuxtLink to="/resume" class="block px-4 py-3 rounded-lg transition-colors" :style="{ color: 'var(--c-text-muted)' }" @click="menuOpen = false">{{ t('nav.resume') }}</NuxtLink>
         <NuxtLink to="/about" class="block px-4 py-3 rounded-lg transition-colors" :style="{ color: 'var(--c-text-muted)' }" @click="menuOpen = false">{{ t('nav.about') }}</NuxtLink>
       </div>
