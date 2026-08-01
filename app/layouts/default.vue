@@ -58,7 +58,7 @@
         <div class="flex gap-6">
           <a href="https://github.com/jameschy" target="_blank" rel="noopener" class="text-sm transition-colors" style="color:var(--c-text-muted)">GitHub</a>
           <a href="https://www.cnblogs.com/chig/" target="_blank" rel="noopener" class="text-sm transition-colors" style="color:var(--c-text-muted)">博客园</a>
-          <NuxtLink to="/resume" class="text-sm transition-colors" style="color:var(--c-text-muted)">{{ t('nav.resume') }}</NuxtLink>
+          <NuxtLink to="/resume" class="text-sm transition-colors" style="color:var(--c-text-muted)">{{ t('nav.about') }}</NuxtLink>
         </div>
       </div>
       <div class="max-w-6xl mx-auto mt-8 pt-4 border-t text-center text-xs" :style="{ borderColor: 'var(--c-border)', color: 'var(--c-text-muted)' }">
