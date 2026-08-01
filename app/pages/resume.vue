@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <div class="flex justify-end gap-3 mb-6 max-w-[1400px] mx-auto">
+  <div class="pt-10">
+    <div class="h-[50px]"></div>
+    <div class="flex justify-center gap-3 mt-6 mb-6 max-w-[1400px] mx-auto">
       <button class="tool-btn" @click="toggleMode">{{ isDouble ? '切换单页预览' : '切换双排预览' }}</button>
       <button class="tool-btn" @click="printResume">打印简历</button>
       <button class="tool-btn" @click="downloadPDF">下载PDF</button>
