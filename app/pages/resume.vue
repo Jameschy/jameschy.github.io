@@ -77,7 +77,7 @@
             </div>
             <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.educationTitle }}</span></div>
             <div class="edu-head"><span>2011-2014</span><span>{{ r.school }}</span><span>{{ r.major }}</span></div>
-            <div class="edu-content"><p>{{ r.eduHonors }}</p></div>
+            <!-- <div class="edu-content"><p>{{ r.eduHonors }}</p></div> -->
             <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.certsTitle }}</span></div>
             <div class="edu-content">{{ r.certs }}</div>
           </div><div class="page-num">{{ r.page }} 4</div>
@@ -163,17 +163,19 @@ const data = {
     huaxing: '深圳华星光电有限公司   电气工程师', huaxingDuties: ['自动化设备维护、日韩厂商对接、跨部门协调'],
     projectsTitle: '项目经历',
     projects: [
-      { name: 'App推广落地页管理后台', role: '全栈开发工程师', time: '2026.2-2026.03', items: ['Webman + LayUI，管理多个推广落地页生成、更新、上包、更包等操作'] },
-      { name: '闪电web海外版', role: '全栈开发', time: '2025.11-2026.2', items: ['WordPress + WooCommerce，中英国际化，插件开发'] },
+      { name: '下载站自动化流程系统', role: '全栈开发架构师', time: '2026.06-2026.07',  items: ['ECMS + Python + Deepseek，开发批量采集定时任务+自动转写+自动发布流程','成功实现每日发布5000条以下任意数量的工作流，大幅提升内容生产效率']},
+      { name: '电商批量铺货系统', role: '全栈开发工程师', time: '2026.06-2026.06', items: ['ThinkPHP8 + LayUI + Python，从立项开发到上线仅用3天','实现商品批量采集、智能定价、一键上架全流程自动化']},
+      { name: 'App推广落地页管理后台', role: '全栈开发工程师', time: '2026.02-2026.03', items: ['Webman + LayUI，管理多个推广落地页生成、更新、上包、更包等操作'] },
+      { name: '闪电web海外版', role: '全栈开发', time: '2025.11-2026.02', items: ['WordPress + WooCommerce，中英国际化，插件开发'] },
       { name: '闪电web直播', role: '前端开发工程师', time: '2025.07-2025.09', items: ['Nuxt3+Tailwind SSR多端直播，中英越国际化，模块化迭代'] },
       { name: '闪电直播H5', role: '前端开发工程师', time: '2025.03-2025.05', items: ['Uniapp + Vue3 + TypeScript 同步闪电APP'] },
       { name: 'App运营可视化后台', role: '全栈开发工程师', time: '2023.11-2024.02', items: ['独立全流程开发数据平台，留存/付费/用户画像统计，7个月无人稳定运行'] },
       { name: '自动化百度采集器', role: '技术合伙人', time: '2022.01-2023.05', items: ['Python爬虫站群系统，十万级数据处理，3个月站点权重3'] },
       { name: 'Odinlake人体工学独立站', role: '独立站工程师', time: '2021.08-2021.12', items: ['WordPress多语言站，页面测速提升至A级，上线即获询盘'] },
-      { name: 'Fezen Shopify小家电站', role: '', time: '2021.01-2021.04', items: ['Shopify模板、支付、安全体系搭建，一月交付投放'] },
-      { name: '51下载站（帝国CMS）', role: '', time: '2020.05-2020.12', items: ['下载门户全站开发，防采集防DDOS安全体系'] },
     ],
     projects2: [
+      { name: 'Fezen Shopify小家电站', role: '', time: '2021.01-2021.04', items: ['Shopify模板、支付、安全体系搭建，一月交付投放'] },
+      { name: '51下载站（帝国CMS）', role: '', time: '2020.05-2020.12', items: ['下载门户全站开发，防采集防DDOS安全体系'] },
       { name: '红辣椒游戏官网平台', role: '', time: '2020.07-2020.08', desc: '帝国CMS游戏下载站，2周完成前后端、会员、备份模块' },
       { name: '鼎业广告管理系统', role: '', time: '2019.06-2019.09', desc: '广告投放与数据分析后台全栈开发' },
       { name: 'NightsWeb', role: '前端开发', time: '2019.02-2019.05', items: ['视频播放、列表跳转等前端交互开发'] },
@@ -184,7 +186,7 @@ const data = {
       { name: '深圳之窗车辆违章查询模块', role: '', time: '2016.11-2016.12', desc: '便民查询前端开发与维护' },
     ],
     educationTitle: '教育经历', school: '武汉职业技术大学', major: '电子信息工程技术',
-    eduHonors: '班级副班长，在校荣誉：优秀共青团员、电竞大赛优秀奖、马拉松团体季军',
+    // eduHonors: '班级副班长，在校荣誉：优秀共青团员、电竞大赛优秀奖、马拉松团体季军',
     certsTitle: '资格证书', certs: '驾驶证C2、电工一级', page: '第',
   },
   en: {
@@ -213,6 +215,8 @@ const data = {
     huaxing: 'Shenzhen Huaxing Optoelectronics    Electrical Engineer', huaxingDuties: ['Automation equipment maintenance, Japan/Korea vendor coordination, cross-department communication'],
     projectsTitle: 'Project Experience',
     projects: [
+      { name: 'Download Site Automation System', role: 'Full-Stack Architect', time: '2026.06-2026.07', items: ['ECMS + Python + Deepseek, developed batch scraping, scheduled tasks, auto-transcription & auto-publishing workflow', 'Successfully implemented daily publishing of up to 5000 posts with customizable workflow automation'] },
+      { name: 'E-commerce Bulk Listing System', role: 'Full-Stack Engineer', time: '2026.06-2026.06', items: ['ThinkPHP8 + LayUI + Python, from project initiation to launch in just 3 days', 'Implemented product bulk scraping, intelligent pricing, and one-click listing automation'] },
       { name: 'App Landing Page Management Backend', role: 'Full-Stack Engineer', time: '2026.02-2026.03', items: ['Webman + LayUI, managed landing page generation, updates, and app packaging'] },
       { name: 'Lightning Web International', role: 'Full-Stack Dev', time: '2025.11-2026.02', items: ['WordPress + WooCommerce, CN/EN i18n, plugin development'] },
       { name: 'Lightning Web Live', role: 'Frontend Engineer', time: '2025.07-2025.09', items: ['Nuxt 3 + Tailwind SSR multi-platform live streaming, CN/EN/VI i18n'] },
@@ -220,10 +224,11 @@ const data = {
       { name: 'App Operations Analytics Dashboard', role: 'Full-Stack Engineer', time: '2023.11-2024.02', items: ['Independent full-cycle data platform: retention, revenue, user profiling, 7 months stable'] },
       { name: 'Automated Baidu Scraper', role: 'Tech Co-founder', time: '2022.01-2023.05', items: ['Python crawler site cluster system, 100K+ data processing, site weight 3 in 3 months'] },
       { name: 'Odinlake Ergonomic E-commerce Site', role: 'E-commerce Engineer', time: '2021.08-2021.12', items: ['WordPress multi-language site, page speed grade A, inquiries on launch'] },
-      { name: 'Fezen Shopify Small Appliance Store', role: '', time: '2021.01-2021.04', items: ['Shopify template, payment, security setup, delivered in 1 month'] },
-      { name: '51 Download Site (DedeCMS)', role: '', time: '2020.05-2020.12', items: ['Download portal full-site development, anti-scraping & anti-DDOS security'] },
+
     ],
     projects2: [
+      { name: 'Fezen Shopify Small Appliance Store', role: '', time: '2021.01-2021.04', items: ['Shopify template, payment, security setup, delivered in 1 month'] },
+      { name: '51 Download Site (DedeCMS)', role: '', time: '2020.05-2020.12', items: ['Download portal full-site development, anti-scraping & anti-DDOS security'] },
       { name: 'Red Pepper Game Portal', role: '', time: '2020.07-2020.08', desc: 'DedeCMS game download site, frontend/backend/membership/backup in 2 weeks' },
       { name: 'Dingye Ad Management System', role: '', time: '2019.06-2019.09', desc: 'Ad delivery and data analytics backend full-stack development' },
       { name: 'NightsWeb', role: 'Frontend Dev', time: '2019.02-2019.05', items: ['Video playback, list navigation, and frontend interaction development'] },
@@ -234,7 +239,7 @@ const data = {
       { name: 'Shenzhen Window Traffic Violation Query', role: '', time: '2016.11-2016.12', desc: 'Public utility query frontend development and maintenance' },
     ],
     educationTitle: 'Education', school: 'Wuhan Polytechnic University', major: 'Electronic Information Engineering',
-    eduHonors: 'Class Vice Monitor. Honors: Outstanding Communist Youth League Member, Esports Competition Award, Marathon Team Bronze',
+    // eduHonors: 'Class Vice Monitor. Honors: Outstanding Communist Youth League Member, Esports Competition Award, Marathon Team Bronze',
     certsTitle: 'Certifications', certs: "Driver's License C2, Electrician Level 1", page: 'Page ',
   },
 }
@@ -254,7 +259,21 @@ const r = computed(() => data[resumeLang.value])
 .resume-wrap.single-mode .a4-row { flex-direction: column; align-items: center; gap: 32px; }
 .resume-wrap.double-mode .a4-row { flex-direction: row; gap: 40px; }
 
-.a4-row { display: flex; flex-wrap: nowrap; gap: 40px; justify-content: center; }
+/* .a4-row { display: flex; flex-wrap: nowrap; gap: 40px; justify-content: center; } */
+.a4-row { 
+  display: flex; 
+  flex-wrap: wrap;  /* ✅ 允许换行 - 每行显示2个，超出自动换行 */
+  gap: 32px;        /* ✅ 调整间距为32px，更紧凑 */
+  justify-content: center; 
+}
+
+/* 双排模式专用样式 */
+.resume-wrap.double-mode .a4-row { 
+  flex-direction: row; 
+  flex-wrap: wrap;   /* ✅ 明确启用换行 */
+  gap: 32px;         /* ✅ 统一间距 */
+  justify-content: center; 
+}
 .a4-page { width: 210mm; height: 297mm; flex-shrink: 0; overflow-y: auto; background: #fff; border-radius: 12px; padding: 12mm; box-shadow: 0 8px 30px rgba(0,0,0,0.07); position: relative; display: flex; flex-direction: column; }
 .a4-page::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #217bdd, #639df0); }
 .page-content { flex: 1; }
