@@ -12,8 +12,8 @@
       </div>
     </header>
 
-    <!-- 文章正文 -->
-    <div class="prose max-w-none" :style="{ color: 'var(--c-text)' }">
+    <!-- 文章正文 - 使用 scoped 容器包裹 -->
+    <div class="markdown-body prose max-w-none" :style="{ color: 'var(--c-text)' }">
       <ContentRenderer :value="article" />
     </div>
 
@@ -69,3 +69,6 @@ useHead(() => ({
 
 function formatDate(d?: string) { return d ? new Date(d).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) : '' }
 </script>
+
+<!-- 只在这个页面生效的 Markdown 样式 -->
+<style src="@/assets/css/markdown.css" />

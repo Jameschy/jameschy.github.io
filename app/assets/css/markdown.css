@@ -1,0 +1,239 @@
+/* ====== Markdown 文章内容样式 ====== */
+
+/* 重置 prose 容器 */
+.markdown-body {
+  /* 确保容器占满宽度 */
+}
+
+/* 让 Tailwind Typography 的 prose 类正常工作 */
+.markdown-body .prose {
+  max-width: none !important;
+  color: var(--c-text) !important;
+}
+
+/* 标题优化 */
+.markdown-body .prose h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--c-border);
+  line-height: 1.3;
+}
+
+.markdown-body .prose h2 {
+  font-size: 1.625rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+  line-height: 1.4;
+}
+
+.markdown-body .prose h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.875rem;
+  line-height: 1.4;
+}
+
+.markdown-body .prose h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* 段落和文本 */
+.markdown-body .prose p {
+  margin-bottom: 1.25rem;
+  line-height: 1.85;
+  text-align: left;
+}
+
+/* 列表样式 */
+.markdown-body .prose ul,
+.markdown-body .prose ol {
+  margin: 1.25rem 0;
+  padding-left: 1.75rem;
+}
+
+.markdown-body .prose li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+  padding-left: 0.25rem;
+}
+
+.markdown-body .prose li::marker {
+  color: var(--c-primary);
+  font-weight: 600;
+}
+
+/* 引用块 - 重要！*/
+.markdown-body .prose blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  background-color: rgba(99, 102, 241, 0.04);
+  border-left: 4px solid var(--c-primary);
+  border-radius: 0 0.375rem 0.375rem 0;
+  font-style: normal;
+  color: var(--c-text-muted);
+}
+
+.markdown-body .prose blockquote p {
+  margin-bottom: 0.75rem;
+}
+
+.markdown-body .prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* 表格样式 - 关键！*/
+.markdown-body .prose table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: collapse;
+  overflow-x: auto;
+  display: table; /* 强制表格布局 */
+  border: 1px solid var(--c-border);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.markdown-body .prose thead {
+  background-color: rgba(99, 102, 241, 0.06);
+  border-bottom: 2px solid var(--c-primary);
+}
+
+.markdown-body .prose th {
+  padding: 0.875rem 1rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--c-text);
+  font-size: 0.9375rem;
+}
+
+.markdown-body .prose td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--c-border);
+  color: var(--c-text);
+  vertical-align: top;
+}
+
+.markdown-body .prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown-body .prose tbody tr:hover {
+  background-color: rgba(99, 102, 241, 0.03);
+}
+
+/* 代码块样式 - 非常重要！*/
+.markdown-body .prose pre {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  background-color: #0f172a;
+  border: 1px solid var(--c-border);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.markdown-body .prose pre code {
+  display: block;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: #e2e8f0;
+  background: transparent;
+  padding: 0;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+/* 行内代码 */
+.markdown-body .prose :not(pre) > code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+  color: var(--c-primary-light);
+  background-color: rgba(99, 102, 241, 0.12);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  word-break: break-word;
+}
+
+/* 分隔线 */
+.markdown-body .prose hr {
+  margin: 3rem 0;
+  height: 2px;
+  border: none;
+  background: linear-gradient(to right, transparent, var(--c-border), transparent);
+}
+
+/* 图片 */
+.markdown-body .prose img {
+  max-width: 100%;
+  height: auto;
+  margin: 2rem auto;
+  display: block;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.markdown-body .prose img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* 链接 */
+.markdown-body .prose a {
+  color: var(--c-primary-light);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.markdown-body .prose a:hover {
+  color: var(--c-primary);
+  text-decoration-thickness: 2px;
+}
+
+/* 强调文本 */
+.markdown-body .prose strong {
+  font-weight: 700;
+  color: var(--c-text);
+}
+
+.markdown-body .prose em {
+  font-style: italic;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .markdown-body .prose {
+    font-size: 0.9375rem;
+  }
+  
+  .markdown-body .prose h1 { font-size: 1.75rem; }
+  .markdown-body .prose h2 { font-size: 1.5rem; }
+  .markdown-body .prose h3 { font-size: 1.25rem; }
+  
+  .markdown-body .prose th,
+  .markdown-body .prose td {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .markdown-body .prose pre {
+    padding: 1rem;
+    font-size: 0.8125rem;
+  }
+}
