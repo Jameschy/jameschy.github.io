@@ -9,69 +9,79 @@
     </div>
     <div ref="resumeWrap" class="resume-wrap" :class="isDouble ? 'double-mode' : 'single-mode'">
       <div class="a4-row">
-        <div class="a4-page"><div class="page-content">
-          <div class="header-wrap">
-            <div class="avatar-box"><img src="/static/img/qj.jpg" alt="avatar" /></div>
-            <div class="header-info">
-              <h1>{{ r.name }}</h1>
-              <div class="header-contact">
-                <p v-for="line in r.header" :key="line" v-html="line"></p>
+
+        <div class="a4-page">
+          <div class="page-content">
+            <div class="header-wrap">
+              <div class="avatar-box"><img src="/static/img/qj.jpg" alt="avatar" /></div>
+              <div class="header-info">
+                <h1>{{ r.name }}</h1>
+                <div class="header-contact">
+                  <p v-for="line in r.header" :key="line" v-html="line"></p>
+                </div>
               </div>
             </div>
+            <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.advantagesTitle }}</span></div>
+            <div class="edu-content"><p v-for="(p, i) in r.advantages" :key="i" :style="i > 0 ? 'margin-top:8px' : ''">{{ p }}</p></div>
+            <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.experienceTitle }}</span></div>
+            <div class="item-head"><span>{{ r.honglajiao }}</span><span>2023.08-2026.06</span></div>
+            <div class="sub-title">{{ r.dutiesLabel }}</div>
+            <ul class="text-list"><li v-for="item in r.honglajiaoDuties" :key="item">{{ item }}</li></ul>
           </div>
-          <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.advantagesTitle }}</span></div>
-          <div class="edu-content"><p v-for="(p, i) in r.advantages" :key="i" :style="i > 0 ? 'margin-top:8px' : ''">{{ p }}</p></div>
-          <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.experienceTitle }}</span></div>
-          <div class="item-head"><span>{{ r.honglajiao }}</span><span>2023.08-2026.06</span></div>
-          <div class="sub-title">{{ r.dutiesLabel }}</div>
-          <ul class="text-list"><li v-for="item in r.honglajiaoDuties" :key="item">{{ item }}</li></ul>
-        </div><div class="page-num">{{ r.page }} 1</div></div>
-        <div class="a4-page"><div class="page-content">
-          <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.experienceTitle }} ({{ r.continued }})</span></div>
-          <div class="sub-title">{{ r.achievementsLabel }}</div>
-          <ul class="text-list"><li v-for="item in r.honglajiaoAchievements" :key="item">{{ item }}</li></ul>
-          <div class="item-head"><span>{{ r.jinzhu }}</span><span>2022.01-2023.05</span></div>
-          <ul class="text-list"><li v-for="item in r.jinzhuDuties" :key="item">{{ item }}</li></ul>
-          <div class="item-head"><span>{{ r.dongjia }}</span><span>2021.08-2021.12</span></div>
-          <ul class="text-list"><li v-for="item in r.dongjiaDuties" :key="item">{{ item }}</li></ul>
-          <div class="item-head"><span>{{ r.wuyou }}</span><span>2021.04-2021.08</span></div>
-          <div class="sub-title">{{ r.dutiesLabel }}</div><ul class="text-list"><li v-for="item in r.wuyouDuties" :key="item">{{ item }}</li></ul>
-          <div class="sub-title">{{ r.achievementsLabel }}</div><ul class="text-list"><li v-for="item in r.wuyouAchievements" :key="item">{{ item }}</li></ul>
-          <div class="item-head"><span>{{ r.xiaosi }}</span><span>2021.02-2021.04</span></div>
-          <ul class="text-list"><li v-for="item in r.xiaosiDuties" :key="item">{{ item }}</li></ul>
-          <div class="item-head"><span>{{ r.dingye }}</span><span>2019.04-2021.01</span></div>
-          <div class="sub-title">{{ r.dutiesLabel }}</div><ul class="text-list"><li v-for="item in r.dingyeDuties" :key="item">{{ item }}</li></ul>
-          <div class="sub-title">{{ r.achievementsLabel }}</div><ul class="text-list"><li v-for="item in r.dingyeAchievements" :key="item">{{ item }}</li></ul>
-        </div><div class="page-num">{{ r.page }} 2</div></div>
-      </div>
-      <div class="a4-row">
-        <div class="a4-page"><div class="page-content">
-          <div class="item-head"><span>{{ r.heima }}</span><span>2018.02-2019.03</span></div>
-          <ul class="text-list"><li v-for="item in r.heimaDuties" :key="item">{{ item }}</li></ul>
-          <div class="item-head"><span>{{ r.szwindow }}</span><span>2016.09-2017.12</span></div>
-          <ul class="text-list"><li v-for="item in r.szwindowDuties" :key="item">{{ item }}</li></ul>
-          <div class="item-head"><span>{{ r.huaxing }}</span><span>2014.10-2016.06</span></div>
-          <ul class="text-list"><li v-for="item in r.huaxingDuties" :key="item">{{ item }}</li></ul>
-          <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.projectsTitle }}</span></div>
-          <div v-for="proj in r.projects" :key="proj.name">
-            <div class="item-head"><span>{{ proj.name }} &nbsp;&nbsp; {{ proj.role }}</span><span>{{ proj.time }}</span></div>
-            <ul v-if="proj.items" class="text-list"><li v-for="item in proj.items" :key="item">{{ item }}</li></ul>
-            <div v-else class="edu-content">{{ proj.desc }}</div>
+          <div class="page-num">{{ r.page }} 1</div>
+        </div>
+        <div class="a4-page">
+          <div class="page-content">
+            <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.experienceTitle }} ({{ r.continued }})</span></div>
+            <div class="sub-title">{{ r.achievementsLabel }}</div>
+            <ul class="text-list"><li v-for="item in r.honglajiaoAchievements" :key="item">{{ item }}</li></ul>
+            <div class="item-head"><span>{{ r.jinzhu }}</span><span>2022.01-2023.05</span></div>
+            <ul class="text-list"><li v-for="item in r.jinzhuDuties" :key="item">{{ item }}</li></ul>
+            <div class="item-head"><span>{{ r.dongjia }}</span><span>2021.08-2021.12</span></div>
+            <ul class="text-list"><li v-for="item in r.dongjiaDuties" :key="item">{{ item }}</li></ul>
+            <div class="item-head"><span>{{ r.wuyou }}</span><span>2021.04-2021.08</span></div>
+            <div class="sub-title">{{ r.dutiesLabel }}</div><ul class="text-list"><li v-for="item in r.wuyouDuties" :key="item">{{ item }}</li></ul>
+            <div class="sub-title">{{ r.achievementsLabel }}</div><ul class="text-list"><li v-for="item in r.wuyouAchievements" :key="item">{{ item }}</li></ul>
+            <div class="item-head"><span>{{ r.xiaosi }}</span><span>2021.02-2021.04</span></div>
+            <ul class="text-list"><li v-for="item in r.xiaosiDuties" :key="item">{{ item }}</li></ul>
+            <div class="item-head"><span>{{ r.dingye }}</span><span>2019.04-2021.01</span></div>
+            <div class="sub-title">{{ r.dutiesLabel }}</div><ul class="text-list"><li v-for="item in r.dingyeDuties" :key="item">{{ item }}</li></ul>
+            <div class="sub-title">{{ r.achievementsLabel }}</div><ul class="text-list"><li v-for="item in r.dingyeAchievements" :key="item">{{ item }}</li></ul>
           </div>
-        </div><div class="page-num">{{ r.page }} 3</div></div>
-        <div class="a4-page"><div class="page-content">
-          <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.projectsTitle }} ({{ r.continued }})</span></div>
-          <div v-for="proj in r.projects2" :key="proj.name">
-            <div class="item-head"><span>{{ proj.name }} &nbsp;&nbsp; {{ proj.role }}</span><span>{{ proj.time }}</span></div>
-            <ul v-if="proj.items" class="text-list"><li v-for="item in proj.items" :key="item">{{ item }}</li></ul>
-            <div v-else class="edu-content" :style="proj.desc ? 'padding:0 8px 6px;color:#374151;' : ''">{{ proj.desc }}</div>
-          </div>
-          <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.educationTitle }}</span></div>
-          <div class="edu-head"><span>2011-2014</span><span>{{ r.school }}</span><span>{{ r.major }}</span></div>
-          <div class="edu-content"><p>{{ r.eduHonors }}</p></div>
-          <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.certsTitle }}</span></div>
-          <div class="edu-content">{{ r.certs }}</div>
-        </div><div class="page-num">{{ r.page }} 4</div></div>
+          <div class="page-num">{{ r.page }} 2</div>
+        </div>
+
+        <div class="a4-page">
+          <div class="page-content">
+            <div class="item-head"><span>{{ r.heima }}</span><span>2018.02-2019.03</span></div>
+            <ul class="text-list"><li v-for="item in r.heimaDuties" :key="item">{{ item }}</li></ul>
+            <div class="item-head"><span>{{ r.szwindow }}</span><span>2016.09-2017.12</span></div>
+            <ul class="text-list"><li v-for="item in r.szwindowDuties" :key="item">{{ item }}</li></ul>
+            <div class="item-head"><span>{{ r.huaxing }}</span><span>2014.10-2016.06</span></div>
+            <ul class="text-list"><li v-for="item in r.huaxingDuties" :key="item">{{ item }}</li></ul>
+            <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.projectsTitle }}</span></div>
+            <div v-for="proj in r.projects" :key="proj.name">
+              <div class="item-head"><span>{{ proj.name }} &nbsp;&nbsp; {{ proj.role }}</span><span>{{ proj.time }}</span></div>
+              <ul v-if="proj.items" class="text-list"><li v-for="item in proj.items" :key="item">{{ item }}</li></ul>
+              <div v-else class="edu-content">{{ proj.desc }}</div>
+            </div>
+          </div><div class="page-num">{{ r.page }} 3</div>
+        </div>
+        <div class="a4-page">
+          <div class="page-content">
+            <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.projectsTitle }} ({{ r.continued }})</span></div>
+            <div v-for="proj in r.projects2" :key="proj.name">
+              <div class="item-head"><span>{{ proj.name }} &nbsp;&nbsp; {{ proj.role }}</span><span>{{ proj.time }}</span></div>
+              <ul v-if="proj.items" class="text-list"><li v-for="item in proj.items" :key="item">{{ item }}</li></ul>
+              <div v-else class="edu-content" :style="proj.desc ? 'padding:0 8px 6px;color:#374151;' : ''">{{ proj.desc }}</div>
+            </div>
+            <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.educationTitle }}</span></div>
+            <div class="edu-head"><span>2011-2014</span><span>{{ r.school }}</span><span>{{ r.major }}</span></div>
+            <div class="edu-content"><p>{{ r.eduHonors }}</p></div>
+            <div class="section-title"><div class="title-blue-bar"></div><span>{{ r.certsTitle }}</span></div>
+            <div class="edu-content">{{ r.certs }}</div>
+          </div><div class="page-num">{{ r.page }} 4</div>
+        </div>
       </div>
     </div>
   </div>
@@ -95,22 +105,35 @@ async function downloadPDF() {
   const wasDouble = isDouble.value
   if (wasDouble) isDouble.value = false
   await nextTick()
-  wrap.classList.add('pdf-export')
+  wrap.classList.add('pdf-generating')
   const pages = wrap.querySelectorAll('.a4-page')
-  if (pages.length === 0) { alert('未找到简历页面！'); wrap.classList.remove('pdf-export'); if (wasDouble) isDouble.value = true; return }
+  if (pages.length === 0) { alert('未找到简历页面！'); wrap.classList.remove('pdf-generating'); if (wasDouble) isDouble.value = true; return }
   try {
     const html2canvas = (await import('html2canvas')).default
     const { jsPDF } = await import('jspdf')
     const pdf = new jsPDF('p', 'mm', 'a4')
     for (let i = 0; i < pages.length; i++) {
-      const canvas = await html2canvas(pages[i] as HTMLElement, { scale: 1, useCORS: true, backgroundColor: '#ffffff', logging: false, width: 794, height: 1123 })
-      const imgData = canvas.toDataURL('image/jpeg', 0.95)
+      const page = pages[i] as HTMLElement
+      const rect = page.getBoundingClientRect()
+      const canvas = await html2canvas(page, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        width: rect.width,
+        height: rect.height,
+        imageTimeout: 15000,
+        removeContainer: false,
+        allowTaint: true,
+        foreignObjectRendering: false
+      })
+      const imgData = canvas.toDataURL('image/png', 1.0)
       if (i > 0) pdf.addPage()
-      pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297)
+      pdf.addImage(imgData, 'PNG', 0, 0, 210, 297)
     }
     pdf.save(resumeLang.value === 'zh' ? 'JamesChy_全栈工程师简历.pdf' : 'JamesChy_FullStack_Resume.pdf')
   } catch (err) { console.error('PDF生成失败:', err); alert('生成PDF失败，请重试。') }
-  finally { wrap.classList.remove('pdf-export'); if (wasDouble) isDouble.value = true }
+  finally { wrap.classList.remove('pdf-generating'); if (wasDouble) isDouble.value = true }
 }
 
 const data = {
@@ -261,11 +284,21 @@ const r = computed(() => data[resumeLang.value])
 .sub-title { font-weight: bold; margin: 10px 0 4px 8px; font-size: 15px; text-align: left; color: #334155; }
 .edu-head { display: flex; justify-content: space-between; padding: 0 8px 6px; font-size: 15px; }
 
-.pdf-export .a4-page { width: 794px !important; height: 1123px !important; padding: 24px !important; font-size: 11px !important; line-height: 1.5 !important; overflow: hidden !important; box-shadow: none !important; border-radius: 0 !important; background: #fff !important; }
-.pdf-export .a4-page::before { display: none !important; }
-.pdf-export .header-info h1 { font-size: 24px !important; }
-.pdf-export .header-contact { font-size: 11px !important; line-height: 1.5 !important; }
-.pdf-export .section-title { height: 28px !important; margin: 14px 0 6px !important; }
-.pdf-export .section-title span { font-size: 14px !important; }
-.pdf-export .item-head { font-size: 12px !important; padding: 3px 6px !important; margin-top: 4px !important; }
+.pdf-generating .header-wrap { animation: none !important; transform: none !important; opacity: 1 !important; filter: none !important; -webkit-font-smoothing: antialiased !important; -moz-osx-font-smoothing: grayscale !important; text-rendering: optimizeLegibility !important; }
+.pdf-generating .avatar-box { transform: none !important; image-rendering: -webkit-optimize-contrast !important; image-rendering: crisp-edges !important; }
+.pdf-generating .avatar-box img { image-rendering: -webkit-optimize-contrast !important; image-rendering: crisp-edges !important; }
+.pdf-generating .header-info h1 { font-weight: 700 !important; text-shadow: none !important; -webkit-text-stroke: 0 !important; letter-spacing: normal !important; }
+.pdf-generating .header-contact { font-weight: 400 !important; text-shadow: none !important; }
+.pdf-generating * { animation: none !important; transition: none !important; box-shadow: none !important; }
+
+@media print {
+  body * { visibility: hidden; }
+  .resume-wrap, .resume-wrap * { visibility: visible; }
+  .resume-wrap { position: absolute; left: 0; top: 0; width: 100%; display: flex !important; flex-direction: column !important; gap: 0 !important; }
+  .a4-row { flex-direction: column !important; gap: 0 !important; page-break-after: always; }
+  .a4-page { width: 210mm !important; height: 297mm !important; box-shadow: none !important; border-radius: 0 !important; margin: 0 !important; page-break-inside: avoid; overflow: hidden !important; }
+  .a4-page::before { display: none !important; }
+  .tool-btn { display: none !important; }
+  .pt-10 > div:not(.resume-wrap) { display: none !important; }
+}
 </style>
