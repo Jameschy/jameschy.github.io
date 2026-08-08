@@ -2,7 +2,7 @@
   <div class="pt-10">
     <div class="h-[50px]"></div>
     <div class="flex justify-center gap-3 mt-6 mb-6 max-w-[1400px] mx-auto">
-      <button class="tool-btn" @click="toggleMode">{{ isDouble ? '单排' : '双排' }}</button>
+      <button class="tool-btn" @click="toggleMode">{{ isDouble ? r.singleMode : r.doubleMode }}</button>
       <button class="tool-btn" @click="printResume">{{ r.print }}</button>
       <button class="tool-btn" @click="downloadPDF">{{ r.download }}</button>
       <button class="tool-btn" @click="resumeLang = resumeLang === 'zh' ? 'en' : 'zh'">{{ resumeLang === 'zh' ? 'English' : '中文' }}</button>
@@ -138,7 +138,7 @@ async function downloadPDF() {
 
 const data = {
   zh: {
-    print: '打印简历', download: '下载PDF',
+    print: '打印', download: '下载',singleMode: '单排', doubleMode: '双排',
     name: '戚键',
     header: ['男 | 籍贯：湖北黄冈', '电话：13268367002 | 邮箱：chig@foxmail.com', '标签：全栈工程师 | 前端开发 | 独立站开发', '意向：全职 | 期望薪资：25K-35k | 期望城市：深圳', '博客：<a href="https://www.cnblogs.com/chig/">https://www.cnblogs.com/chig/</a>'],
     advantagesTitle: '个人优势',
@@ -190,7 +190,7 @@ const data = {
     certsTitle: '资格证书', certs: '驾驶证C2、电工一级', page: '第',
   },
   en: {
-    print: 'Print', download: 'Download PDF',
+    print: 'Print', download: 'Download',singleMode: 'Single', doubleMode: 'Double',
     name: 'Qi Jian',
     header: ['Male | Hubei, China', 'Phone: +86 13268367002 | Email: chig@foxmail.com', 'Tags: Full-Stack Engineer | Frontend Dev | E-commerce Dev', 'Status: Full-time | Salary: 25K-35K | Location: Shenzhen', 'Blog: <a href="https://www.cnblogs.com/chig/">https://www.cnblogs.com/chig/</a>'],
     advantagesTitle: 'Professional Summary',
