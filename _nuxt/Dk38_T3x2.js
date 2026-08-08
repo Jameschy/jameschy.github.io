@@ -1,0 +1,1 @@
+import{C as e,b as t}from"./lLuom1-j.js";var n=t({name:`DocumentDrivenNotFound`,render(){return e(`div`,`Document not found`)}}),r=Object.assign(n,{__name:`DocumentDrivenNotFound`});export{r as default};

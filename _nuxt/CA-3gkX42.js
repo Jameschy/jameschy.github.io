@@ -1,0 +1,1 @@
+import{U as e,b as t,u as n,x as r}from"./lLuom1-j.js";import i from"./3vePZZKz2.js";var a=t({name:`Markdown`,extends:i,setup(t){let{parent:i}=r(),{between:a,default:o}=e();return{fallbackSlot:o,tags:n(()=>typeof t.unwrap==`string`?t.unwrap.split(` `):[`*`]),between:a,parent:i}}}),o=Object.assign(a,{__name:`Markdown`});export{o as default};

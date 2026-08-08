@@ -1,0 +1,1 @@
+import{r as e}from"./DK3FLX77.js";var t=e(`/static/img/qj.jpg`);export{t};

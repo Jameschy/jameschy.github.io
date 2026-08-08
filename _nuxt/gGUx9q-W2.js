@@ -1,0 +1,1 @@
+import{I as e,m as t}from"./lLuom1-j.js";import{t as n}from"./BDNMzG2s.js";var r={};function i(n,r){return e(),t(`hr`)}var a=Object.assign(n(r,[[`render`,i]]),{__name:`ProseHr`});export{a as default};

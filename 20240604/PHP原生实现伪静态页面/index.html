@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>PHP原生实现伪静态页面 | 詹姆斯的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="步骤1：构造伪静态列表&lt;? $url &#x3D; &#39;http:&#x2F;&#x2F;10.10.10.51:7012&#x2F;whiteapi&#x2F;live&#39;;  &#x2F;&#x2F; API接口地址 $curl &#x3D; curl_init($url);  &#x2F;&#x2F; 初始化cURL会话      &#x2F;&#x2F; 设置cURL选项 curl_setopt($curl, CURLOPT_URL, $url); curl_setopt($curl, C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP原生实现伪静态页面">
+<meta property="og:url" content="https://jameschy.github.io/20240604/PHP%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0%E4%BC%AA%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/index.html">
+<meta property="og:site_name" content="詹姆斯的博客">
+<meta property="og:description" content="步骤1：构造伪静态列表&lt;? $url &#x3D; &#39;http:&#x2F;&#x2F;10.10.10.51:7012&#x2F;whiteapi&#x2F;live&#39;;  &#x2F;&#x2F; API接口地址 $curl &#x3D; curl_init($url);  &#x2F;&#x2F; 初始化cURL会话      &#x2F;&#x2F; 设置cURL选项 curl_setopt($curl, CURLOPT_URL, $url); curl_setopt($curl, C">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-04T02:11:12.000Z">
+<meta property="article:modified_time" content="2024-06-04T02:59:28.086Z">
+<meta property="article:author" content="James chy">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="詹姆斯的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">詹姆斯的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一个全栈开发者的博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jameschy.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-PHP原生实现伪静态页面" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/20240604/PHP%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0%E4%BC%AA%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/" class="article-date">
+  <time class="dt-published" datetime="2024-06-04T02:11:12.000Z" itemprop="datePublished">2024-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      PHP原生实现伪静态页面
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="步骤1：构造伪静态列表"><a href="#步骤1：构造伪静态列表" class="headerlink" title="步骤1：构造伪静态列表"></a>步骤1：构造伪静态列表</h4><pre><code>&lt;?
+$url = &#39;http://10.10.10.51:7012/whiteapi/live&#39;;  // API接口地址
+$curl = curl_init($url);  // 初始化cURL会话
+
+    // 设置cURL选项
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    &#39;Authorization: Bearer YOUR_API_TOKEN&#39;,
+]);
+
+// 执行HTTP请求并获取返回数据
+$response = curl_exec($curl);
+curl_close($curl);
+
+// 处理返回数据
+$data = json_decode($response, true);
+
+if ($data) &#123;
+    // 在这里对返回的数据进行处理
+    // ...
+  //var_dump($data[data][matchs]);
+$matchsLi =$data[data][matchs];
+
+/*echo?&quot;&lt;ul&gt;&quot;;*/
+foreach ($matchsLi as $item) &#123;
+$matchsData = explode(&#39;-&#39;, $item[39]);
+$matchsTime = explode(&#39;:&#39;, $item[40]);
+$matchsStatus = $item[1];
+if($matchsStatus==0)&#123;
+  $statusTxt=&quot;未开始&quot;;
+  $statusCls=&quot;future&quot;;
+  $cls=&quot;#999&quot;;
+&#125;else if($matchsStatus==1)&#123;
+  $statusTxt=&quot;上半场&quot;;
+  $statusCls=&quot;live&quot;;
+  $cls=&quot;#d2691e&quot;;
+&#125;else if($matchsStatus==2)&#123;
+  $statusTxt=&quot;中场&quot;;
+  $statusCls=&quot;live&quot;;
+  $cls=&quot;#ff7f50&quot;;
+&#125;else if($matchsStatus==3)&#123;
+  $statusTxt=&quot;下半场&quot;;
+  $statusCls=&quot;live&quot;;
+  $cls=&quot;#ed143d&quot;;
+&#125;else if($matchsStatus==-1)&#123;
+  $statusTxt=&quot;已完赛&quot;;
+  $statusCls=&quot;past&quot;;
+  $cls=&quot;#000&quot;;
+&#125;
+    echo  &#39;&lt;ul class=&quot;&#39;.$statusCls.&#39;&quot;&gt;
+    &lt;li class=&quot;t1&quot;&gt;&#39;.$matchsData[1].&#39;月&#39;.$matchsData[2].&#39;日&#39;.$matchsTime[0].&#39;:&#39;.$matchsTime[1].&#39;&lt;/li&gt;
+    &lt;li class=&quot;t2 ak2046&quot;&gt;&lt;a href=&quot;/matches-&#39;.$item[0].&#39;.html&quot;&gt;&amp;nbsp;&lt;/a&gt;&lt;/li&gt;
+    &lt;li class=&quot;t3&quot;&gt;&lt;a href=&quot;/matches-&#39;.$item[0].&#39;.html&quot;&gt;&#39;.$item[19].&#39;&lt;/a&gt;&lt;/li&gt;
+    &lt;li class=&quot;t4&quot;&gt;&lt;a href=&quot;/matches-&#39;.$item[0].&#39;.html&quot;&gt;&lt;strong&gt;&#39;.$item[7].&#39;&lt;/strong&gt;&lt;img
+        src=&quot;static/picture/vs2.png&quot; alt=&quot;&quot;&gt;&lt;b&gt;&#39;.$item[8].&#39;&lt;/b&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&quot;t6&quot;&gt;&lt;a href=&quot;/matches-&#39;.$item[0].&#39;.html&quot; style=&quot;color:&#39;.$cls.&#39;;&quot;&gt;&#39;.$statusTxt.&#39;&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;&#39;;
+    &#125;
+&#125; else &#123;
+    // 请求失败
+    echo &#39;API请求失败&#39;;
+&#125;
+?&gt;
+</code></pre>
+<h4 id="步骤2：编写php，获取传参，渲染页面"><a href="#步骤2：编写php，获取传参，渲染页面" class="headerlink" title="步骤2：编写php，获取传参，渲染页面"></a>步骤2：编写php，获取传参，渲染页面</h4><pre><code>&lt;?
+require(&quot;e/class/connect.php&quot;);
+if(!defined(&#39;InEmpireCMS&#39;))
+&#123;
+exit();
+&#125;
+require(&quot;e/class/db_sql.php&quot;);
+require(&quot;e/class/q_functions.php&quot;);
+$link=db_connect();
+$empire=new mysqlquery();
+$headr=$empire-&gt;fetch1(&quot;select varvalue from &#123;$dbtbpre&#125; enewstempvar where myvar=&#39;kbf_header&#39; limit 1&quot;);
+$remen=$empire-&gt;fetch1(&quot;select varvalue from &#123;$dbtbpre&#125; enewstempvar where myvar=&#39;kbf_remen&#39; limit 1&quot;);
+$fenxi=$empire-&gt;fetch1(&quot;select varvalue from &#123;$dbtbpre&#125; enewstempvar where myvar=&#39;kbf_fenxi&#39; limit 1&quot;);
+
+echo $footer.&quot;&lt;br/&gt;&quot;;
+
+
+$urlParams = $_GET[&#39;id&#39;];
+
+// eReturnRewriteAuto($urlParams);
+// echo $urlParams;
+$todayYMD = date(&quot;Ymd&quot;);
+// echo $todayYMD;
+$urlPre = &#39;http://10.10.10.51:7012/&#39;;
+$url = $urlPre.&#39;whiteapi/detail/&#39;.$urlParams;  // API接口   地址
+$curl = curl_init();  // 初始化cURL会话
+
+// 设置cURL选项
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    &#39;Authorization: Bearer YOUR_API_TOKEN&#39;,
+]);
+
+// 执行HTTP请求并获取返回数据
+$response = curl_exec($curl);
+curl_close($curl);
+
+// 处理返回数据
+$data = json_decode($response, true);
+if ($data) &#123;
+    // 在这里对返回的数据进行处理
+    // ...
+//   var_dump($data[data][matchInfo]);
+
+
+$matchsMsg =$data[data][&#39;matchInfo&#39;];
+// var_dump($matchsMsg);
+// echo strlen($matchsMsg[&#39;guTeamName&#39;]).&#39;---666666&lt;br/ &gt;&#39;;
+// if(strlen($matchsMsg[&#39;guTeamName&#39;])&gt;15)&#123;
+//     echo &quot;字符串大于15&quot;;
+// &#125;;
+
+$title = $matchsMsg[&#39;leagueName&#39;].&quot;:&quot;.$matchsMsg    [&#39;guTeamName&#39;].&quot;vs&quot;.$matchsMsg[&#39;hoTeamName&#39;].&quot;赛事详情&quot;;
+$matchsStatus = $matchsMsg[&#39;status&#39;];
+if($matchsStatus==0)&#123;
+  $statusTxt=&quot;未开始&quot;;
+  $statusCls=&quot;future&quot;;
+  $cls=&quot;future_color&quot;;
+&#125;else if($matchsStatus==1)&#123;
+  $statusTxt=&quot;上半场&quot;;
+  $statusCls=&quot;live&quot;;
+  $cls=&quot;live_color&quot;;
+&#125;else if($matchsStatus==2)&#123;
+  $statusTxt=&quot;中场&quot;;
+  $statusCls=&quot;live&quot;;
+  $cls=&quot;live_color&quot;;
+&#125;else if($matchsStatus==3)&#123;
+  $statusTxt=&quot;&lt;?=$statusTxt?&gt;&quot;;
+  $statusCls=&quot;live&quot;;
+  $cls=&quot;live_color&quot;;
+&#125;else if($matchsStatus==-1)&#123;
+  $statusTxt=&quot;已完赛&quot;;
+  $statusCls=&quot;past&quot;;
+  $cls=&quot;past_color&quot;;
+&#125;
+$eventMsg = $data[data][&#39;eventListCacheList&#39;];
+
+for ($i = 0; $i &lt; count($eventMsg); $i++) &#123;
+
+    $searchInName = &#39;/&lt;inPlayer&gt;/&#39;;
+    $searchOutName = &#39;/&lt;outPlayer&gt;/&#39;;
+
+    if($eventMsg[$i][&quot;playerInName&quot;] !==null )&#123;
+        $eventMsg[$i][&quot;liveText&quot;]=preg_replace($searchInName,$eventMsg[$i][&quot;playerInName&quot;],$eventMsg[$i][&quot;liveText&quot;]);
+    &#125;
+    if($eventMsg[$i][&quot;playerOutName&quot;] !==null )&#123;
+        $eventMsg[$i][&quot;liveText&quot;]=preg_replace($searchOutName,$eventMsg[$i][&quot;playerOutName&quot;],$eventMsg[$i][&quot;liveText&quot;]);
+    &#125;
+
+    $eventTxt .= &#39;&lt;li class=&quot;t1&quot;&gt;第&#39;.$eventMsg[$i][&quot;minute&quot;].&#39;分钟-&#39;.$eventMsg[$i][&quot;liveText&quot;].&#39;&lt;/li&gt;&#39;;
+&#125;
+&#125; else &#123;
+// 请求失败
+echo &#39;API请求失败&#39;;
+&#125;
+function bgImg($image_url)&#123; 
+    if(is_image_404_using_curl($image_url)==404 || $image_url ==&#39;&#39;)&#123;
+    &#125;else&#123;
+        echo &quot;background-image:url(&#39;$image_url&#39;)&quot;;
+    &#125;
+&#125;
+function is_image_404_using_curl($image_url) &#123;
+    $ch = curl_init($image_url);
+    curl_setopt($ch, CURLOPT_NOBODY, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_exec($ch);
+    $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    return $status_code == 404;
+&#125;
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;renderer&quot; content=&quot;webkit&quot;&gt;
+    &lt;title&gt;&lt;?=$title?&gt;-&lt;?=$public_r[&#39;sitename&#39;]?&gt;&lt;/title&gt;
+    &lt;meta name=&quot;keywords&quot; content=&quot;&lt;?=$matchsMsg    [&#39;leagueName&#39;]?&gt;,&lt;?=$matchsMsg[&#39;guTeamName&#39;]?&gt;,&lt;?   =$matchsMsg[&#39;hoTeamName&#39;]?&gt;&quot; /&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;&lt;?=$title?&gt;&quot; /&gt;
+    &lt;meta name=&quot;applicable-device&quot; content=&quot;pc,mobile&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, user-scalable=no,maximum-scale=1,width=device-width&quot;&gt;
+    &lt;meta name=&quot;wap-font-scale&quot; content=&quot;no&quot;&gt;
+    &lt;meta http-equiv=&quot;Cache-Control&quot;    content=&quot;no-siteapp&quot; /&gt;
+    &lt;meta http-equiv=&quot;Cache-Control&quot;    content=&quot;no-transform&quot; /&gt;
+    &lt;meta name=&quot;format-detection&quot;   content=&quot;telephone=no&quot; /&gt;
+    &lt;meta name=&quot;apple-mobile-web-app-capable&quot;   content=&quot;yes&quot; /&gt;
+    &lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot;  content=&quot;black&quot; /&gt;
+    &lt;link href=&quot;/static/css/style.css&quot; rel=&quot;stylesheet&quot;     type=&quot;text/css&quot;&gt;
+    &lt;link href=&quot;/static/css/arc-pc.css&quot; rel=&quot;stylesheet&quot;    type=&quot;text/css&quot;&gt;
+    &lt;script src=&quot;/static/js/jquery.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;?=stripslashes($headr[0])?&gt;
+    &lt;div class=&quot;black100&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;ZT-wrap&quot;&gt;
+        &lt;div class=&quot;zt-content&quot;&gt;
+            &lt;div class=&quot;cont_L&quot;&gt;
+                &lt;div class=&quot;news_info_warp&quot;&gt;
+                        &lt;div class=&quot;brednav&quot;&gt;
+                            &lt;p&gt;&lt;a href=&quot;/&quot;&gt;首页&lt;/a&gt;&amp;    nbsp;/&amp;nbsp;&lt;a href=&quot;###/zbj/   45/0/&quot;&gt;赛事直播&lt;/a&gt;&amp;nbsp;/&amp;    nbsp;&lt;a href=&quot;###/zbj/46/0/&quot;&gt;   足球直播&lt;/a&gt;&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;info_top&quot;&gt;
+                            &lt;h1&gt;&lt;?=$title?&gt;&lt;/h1&gt;
+                            &lt;div class=&quot;lis&quot;&gt;直播时间：&lt;?   =$matchsMsg[&#39;matchTime&#39;]?&gt;&lt;/   div&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;info_tex_center&quot;&gt;
+                            &lt;dd id=&quot;pagecontent&quot;&gt;
+                                &lt;div class=&quot;live-box&quot;&gt;
+                                    &lt;div class=&quot;b1&quot;     style=&quot;&lt;?=bgImg ($matchsMsg  [&#39;guTeamImg&#39;])?&gt;&quot;&gt;
+                                        &lt;span   class=&quot;teamname&quot;&gt; &lt;?=$matchsMsg    [&#39;guTeamSimpName&#39;   ]?&gt;&lt;/span&gt;
+                                        &lt;br/&gt;
+                                        &lt;span   class=&quot;score&quot;&gt;&lt;?  =$matchsMsg   [&#39;guScore&#39;]?&gt;&lt;/    span&gt;
+                                    &lt;/div&gt;
+                                    &lt;div class=&quot;b2&quot;&gt;
+                                        &lt;dl&gt;&lt;?=$matchsMsg   [&#39;matchTime&#39;]?&gt;&lt;/  dl&gt;
+                                        &lt;dl&gt;&lt;?=$matchsMsg   [&#39;leagueName&#39;]?    &gt;&lt;/dl&gt;
+                                        &lt;dl class=&quot;b &lt;? =$cls?&gt;&quot;&gt;&lt;?  =$statusTxt?&gt;&lt;/   dl&gt;
+                                    &lt;/div&gt;
+
+                                    &lt;div class=&quot;b3&quot;     style=&quot;&lt;?=bgImg ($matchsMsg  [&#39;hoTeamImg&#39;])?&gt;&quot;&gt;
+                                        &lt;span   class=&quot;teamname&quot;&gt; &lt;?=$matchsMsg    [&#39;hoTeamSimpName&#39;   ]?&gt;&lt;/span&gt;
+                                        &lt;br/&gt;
+                                        &lt;span   class=&quot;score&quot;&gt;&lt;?  =$matchsMsg   [&#39;hoScore&#39;]?&gt;&lt;/    span&gt;
+                                    &lt;/div&gt; 
+
+                                    &lt;?=$matchsMsg   [&#39;guTeamName&#39;]?&gt; vs    &lt;?=$matchsMsg  [&#39;hoTeamName&#39;]?&gt; &lt;?   =$matchsMsg    [&#39;leagueName&#39;]?&gt;
+                                &lt;/div&gt;
+                                &lt;h2&gt;&lt;strong&gt;直播信号：&lt;/    strong&gt;&lt;/h2&gt;
+                                &lt;div class=&quot;live&quot;&gt;
+                                    &lt;script src=&quot;/tg.   js&quot;&gt;&lt;/script&gt;
+                                    &lt;script     rel=&quot;external   nofollow&quot;     language=&quot;javascript&quot;    src=&quot;https://www. nawhg.cn/tg.js&quot;&gt;&lt;/   script&gt;
+                                    &lt;a  href=&quot;/go.html? gourl=https://www.   miguvideo.com/&quot;    rel=&quot;external  nofollow&quot;    target=&quot;_blank&quot;&gt;咪咕   直播&lt;/a&gt;
+                                    &lt;a  href=&quot;/go.html? gourl=https://tv.    cctv.com/live/cctv5/    &quot; rel=&quot;external     nofollow&quot;   target=&quot;_blank&quot;&gt;cctv5 &lt;/a&gt;
+                                    &lt;a href=&quot;/queen/pcbf.   html&quot;  target=&quot;_blank&quot;&gt;即时 比分&lt;/a&gt;
+                                &lt;/div&gt;
+                                &lt;br&gt;
+
+                                &lt;?
+if($matchsMsg[&#39;status&#39;]!=-1)&#123;
+?&gt;
+                                &lt;p&gt;本场预测：&lt;? =$matchsMsg  [&#39;guTeamName&#39;]?&gt;vs&lt;?  =$matchsMsg   [&#39;hoTeamName&#39;]?&gt;比赛，双   方在球场上奋力拼搏，展现了 精彩的表现和令人赞叹的技 术。比赛开始后，&lt;?   =$matchsMsg    [&#39;guTeamName&#39;]?&gt;士气高  昂，&lt;?=$matchsMsg [&#39;hoTeamName&#39;]?&gt;进攻非常 积极。在进攻端，双方发挥都   非常出色，制造了多次威胁。 尤其是&lt;?=$matchsMsg  [&#39;guTeamName&#39;]?&gt;，多次利  用中场串联快速反击，让&lt;?  =$matchsMsg   [&#39;hoTeamName&#39;]?&gt;防线不断   遭受压力。
+                                &lt;/p&gt;
+                                &lt;p&gt;比赛进行到&lt;? =$statusTxt?&gt;，场上的节奏    有所下降，双方开始更加谨    慎，尝试在防守中寻找破绽。  进入补时阶段，&lt;?  =$matchsMsg   [&#39;hoTeamName&#39;]?&gt;发起疯狂   进攻，扬起了一片热烈的掌   声。最终结果如何，让我们一 起期待。&lt;/p&gt;
+                                &lt;p&gt;总之，本场&lt;? =$matchsMsg  [&#39;guTeamName&#39;]?&gt;对&lt;?  =$matchsMsg   [&#39;hoTeamName&#39;]?&gt;比赛充满   激情，场面十分精彩，双方的 表现都令人称赞，玻利甲系列   赛事值得球迷们一起回味。&lt;/ p&gt;
+                                &lt;p&gt;直播本场&lt;?=$matchsMsg    [&#39;guTeamName&#39;]?&gt;vs&lt;?    =$matchsMsg [&#39;hoTeamName&#39;]?&gt;的信号由 网络实时收集跳转观看，赛事   玻利甲相关比赛结束后录像和 回放也是很快就会生产提供跳   转链接，欢迎一起再次回味比 赛实况。&lt;/p&gt;
+                                &lt;p&gt;&lt;/p&gt;
+                            &lt;/dd&gt;
+&lt;?
+&#125;
+if($matchsMsg[&#39;status&#39;] !==0 &amp;&amp; $matchsMsg[&#39;status&#39;]    !==1)&#123;
+?&gt;
+                            &lt;div style=&quot;clear: both;&quot;&gt;
+                                &lt;h2&gt;&lt;strong&gt;赛事事件：&lt;/    strong&gt;&lt;/h2&gt;
+                                &lt;ul class=&quot;eventList&quot;&gt;
+                                    &lt;?=$eventTxt?&gt;
+                                &lt;/ul&gt;
+                            &lt;/div&gt;
+&lt;?
+&#125;
+?&gt;
+                            &lt;div class=&quot;tagg&quot;&gt;
+                                &lt;a href=&quot;/dt/52/83557/&quot;&gt;    利物浦嘉士伯玻璃杯&lt;/a&gt;
+                                &lt;a href=&quot;/dt/52/83158/&quot;&gt;    清远水晶宫玻璃桥&lt;/a&gt;
+                                &lt;a href=&quot;/dt/59/88247/&quot;&gt;    今天的布雷斯特比赛直播&lt;/a&gt;
+                                &lt;a href=&quot;/dt/52/88231/&quot;&gt;    曼城31布莱顿&lt;/a&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;con-right fr&quot;&gt;
+                &lt;?=stripslashes($remen[0])?&gt;
+                &lt;div class=&quot;bt-c2&quot;&gt;
+                    &lt;p&gt;前瞻分析&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;dd&gt;
+                    &lt;div class=&quot;list&quot;&gt;
+                        &lt;ul&gt;
+                        &lt;/ul&gt;
+                    &lt;/div&gt;
+                &lt;/dd&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div style=&quot;display: none&quot;&gt;
+        &lt;script src=&quot;/static/js/    c6475713f8f4456998c036a17b76aeb6.js&quot;&gt;&lt;/script&gt;
+    &lt;/div&gt;
+    &lt;footer class=&quot;Foot&quot;&gt;
+        &lt;div class=&quot;w1200&quot;&gt;
+
+            &lt;p&gt; 联系QQ:&lt;?=$public_r[&#39;add_qq&#39;]?&gt;   联系邮箱  : &lt;?=$public_r[&#39;add_email&#39;]?&gt;&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt; 联系地址:&lt;?=$public_r[&#39;add_addr&#39;]?&gt;&lt;/p&gt;
+            &lt;p&gt; 备案号:&lt;a href=&quot;https://beian.miit.gov. cn/#/Integrated/index&quot; rel=&quot;nofollow&quot;    title=&quot;&quot;&gt;&lt;?=$public_r[&#39;add_beianhao&#39;]?&gt;&lt;/a&gt;&lt;/  p&gt;
+            &lt;p&gt;本站内容由互联网收集整理，目的在于研究学习传递   之用仅供参考，链接导航跳转不存储制作任何内容。&lt;/   p&gt;
+        &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/footer&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/static/js/top. js&quot;&gt;&lt;/script&gt;
+    &lt;div class=&quot;footer2&quot;&gt;
+        &lt;div class=&quot;find&quot;&gt;
+            &lt;a href=&quot;/&quot; class=&quot;index&quot;&gt;&lt;i&gt;&lt;/i&gt; 直播&lt;/a&gt;
+            &lt;a href=&quot;###/zbj/46/&quot; class=&quot;icozq dq&quot;&gt;&lt;i&gt;&lt;/    i&gt; 足球&lt;/a&gt;
+            &lt;a href=&quot;###/zbj/44/&quot; class=&quot;icolq&quot;&gt;&lt;i&gt;&lt;/i&gt;     篮球&lt;/a&gt;
+            &lt;a href=&quot;###/zbj/49/&quot; class=&quot;icolx&quot;&gt;&lt;i&gt;&lt;/i&gt;     录像&lt;/a&gt;
+            &lt;a href=&quot;###/zbj/37/&quot; class=&quot;icoxs&quot;&gt;&lt;i&gt;&lt;/i&gt;     前瞻&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4 id="步骤3：设置伪静态规则；Nginx服务器Rewrite"><a href="#步骤3：设置伪静态规则；Nginx服务器Rewrite" class="headerlink" title="步骤3：设置伪静态规则；Nginx服务器Rewrite"></a>步骤3：设置伪静态规则；Nginx服务器Rewrite</h4><pre><code>rewrite ^([^\.]*)/matches-(.+?)\.html$ $1/matchResult.php?id=$2 last;
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jameschy.github.io/20240604/PHP%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0%E4%BC%AA%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/" data-id="cm03iaowx00034ovdh9nr36io" data-title="PHP原生实现伪静态页面" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/20240820/Easyadmin%E5%AE%89%E8%A3%85/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Easyadmin安装
+        
+      </div>
+    </a>
+  
+  
+    <a href="/20231007/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">markdown常用语法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">十月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/20240821/Easyadmin%E4%BD%BF%E7%94%A8Composer-install%E6%97%B6%E6%8A%A5%E9%94%99%EF%BC%9AThe-openssl-extension-is-required-for-SSL-TLS-protection-but-is-not-availab/">Easyadmin使用Composer install时报错：The openssl extension is required for SSL/TLS protection but is not availab</a>
+          </li>
+        
+          <li>
+            <a href="/20240820/Easyadmin%E5%AE%89%E8%A3%85/">Easyadmin安装</a>
+          </li>
+        
+          <li>
+            <a href="/20240604/PHP%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0%E4%BC%AA%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/">PHP原生实现伪静态页面</a>
+          </li>
+        
+          <li>
+            <a href="/20231007/markdown%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">markdown常用语法</a>
+          </li>
+        
+          <li>
+            <a href="/20231007/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8/">hexo常用命令列表</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 James chy<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
