@@ -14,12 +14,15 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        # 升级到 v6 以支持 Node.js 24 运行时
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        # 升级到 v7 以支持 Node.js 24 运行时
+        uses: actions/setup-node@v7
         with:
           node-version: 22
+          cache: 'npm' # 建议添加缓存以提高构建速度
 
       - name: Install dependencies
         run: npm ci
@@ -28,6 +31,7 @@ jobs:
         run: npx nuxi generate
 
       - name: Deploy to GitHub Pages
+        # peaceiris/actions-gh-pages@v4 通常已兼容，若仍有警告可检查其最新版本
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
