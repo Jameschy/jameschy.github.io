@@ -140,7 +140,7 @@ const data = {
   zh: {
     print: '打印', download: '下载',singleMode: '单排', doubleMode: '双排',
     name: '戚键',
-    header: ['男 | 籍贯：湖北黄冈', '电话：13268367002 | 邮箱：chig@foxmail.com', '标签：全栈工程师 | 前端开发 | 独立站开发', '意向：全职 | 期望薪资：25K-35k | 期望城市：深圳', '博客：<a href="https://www.cnblogs.com/chig/">https://www.cnblogs.com/chig/</a>'],
+    header: ['男 | 籍贯：湖北黄冈', '电话：13268367002 | 邮箱：chig@foxmail.com', '标签：全栈工程师 | 前端开发 | 独立站开发', '意向：全职 | 期望薪资：面议 | 期望城市：深圳', '博客：<a href="https://www.cnblogs.com/chig/">https://www.cnblogs.com/chig/</a>'],
     advantagesTitle: '个人优势',
     advantages: [
       '本人拥有8年Web开发、2年技术主管经验，深耕网站建设及运维，擅长各类前端网站、后台系统建设及配套开发，实战经验丰富。熟练运用Shopify、WordPress、帝国CMS、织梦等主流建站系统，可独立完成海外独立从技术选型、环境部署、页面开发、响应式适配，到支付接口对接、广告渠道联调、安全防护、seo优化的全流程落地，熟悉英法葡西日韩越等多语言版本开发，主导多款海外品牌独立站顺利上线运营。',
@@ -192,7 +192,7 @@ const data = {
   en: {
     print: 'Print', download: 'Download',singleMode: 'Single', doubleMode: 'Double',
     name: 'Qi Jian',
-    header: ['Male | Hubei, China', 'Phone: +86 13268367002 | Email: chig@foxmail.com', 'Tags: Full-Stack Engineer | Frontend Dev | E-commerce Dev', 'Status: Full-time | Salary: 25K-35K | Location: Shenzhen', 'Blog: <a href="https://www.cnblogs.com/chig/">https://www.cnblogs.com/chig/</a>'],
+    header: ['Male | Hubei, China', 'Phone: +86 13268367002 | Email: chig@foxmail.com', 'Tags: Full-Stack Engineer | Frontend Dev | E-commerce Dev', 'Status: Full-time | Salary: Negotiable | Location: Shenzhen', 'Blog: <a href="https://www.cnblogs.com/chig/">https://www.cnblogs.com/chig/</a>'],
     advantagesTitle: 'Professional Summary',
     advantages: [
       '8 years of web development and 2 years of tech lead experience, specializing in website development and operations. Proficient in Shopify, WordPress, DedeCMS, and other mainstream CMS platforms. Capable of independently handling the full lifecycle of overseas e-commerce sites — from tech selection, environment setup, and responsive development to payment integration, ad channel configuration, security hardening, and SEO optimization. Experienced in multi-language development (EN/FR/PT/ES/JP/KR/VI).',
