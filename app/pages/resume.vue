@@ -131,7 +131,7 @@ async function downloadPDF() {
       if (i > 0) pdf.addPage()
       pdf.addImage(imgData, 'PNG', 0, 0, 210, 297)
     }
-    pdf.save(resumeLang.value === 'zh' ? 'JamesChy_全栈工程师简历.pdf' : 'JamesChy_FullStack_Resume.pdf')
+    pdf.save(resumeLang.value === 'zh' ? '戚键_全栈工程师简历.pdf' : 'JamesChy_FullStack_Resume.pdf')
   } catch (err) { console.error('PDF生成失败:', err); alert('生成PDF失败，请重试。') }
   finally { wrap.classList.remove('pdf-generating'); if (wasDouble) isDouble.value = true }
 }
